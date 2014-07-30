@@ -1,12 +1,27 @@
 JavaScript Style Guide
 ======================
 
+_An opinionated style guide for writing JavaScript._
+
+
 ## Table of Contents
 
+1. 	[Intro](#intro)
 1. 	[Arrays](#arrays)
 1. 	[Strings](#strings)
 1. 	[Whitespace](#whitespace)
 1. 	[Variables](#variables)
+
+
+## Intro
+
+Always abide by the __Law of Code Style Consistency__, or, in other words, _when in Rome, do as the Romans do_. 
+
+While the code base to which you want to contribute may be a horrific mess in terms of aesthetic appearance and style, style consistency takes precendent over personal preference and canon. The more consistent a code base is in terms of style, the more readers of the code can focus on what the code does rather than deciphering changes in style.
+
+So, if your peers commit various _faux pas_ outlined below, as long as you are contributing to their code base, abide by their conventions.
+
+A code base--module, repository, application, library, etc--should always appear to have a single author and not be a schizophrenic franken-mess. 
 
 
 ## Arrays
@@ -170,4 +185,11 @@ function myFunction() {
 	var bar = foo * 5;
 }
 ```
+
+
+
+## Additional Resources
+
+* [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+* [Idiomatic.js](https://github.com/rwaldron/idiomatic.js/)
 
