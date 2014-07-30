@@ -13,6 +13,7 @@ TODO
 6. 	Do one thing; do one thing well
 7. 	Bind this (instead of self)
 8. 	For public libraries, do type/sanity check input arguments. Yes, type checking has computational cost (possibly a few extra conditional comparisions), but not providing such checking can be a considerable drain on your user's time. Subtle bugs can arise from using unexpected types. Be explicit in what you expect and write tests confirming your expectations.
-9. 	
+9. 	Create an example file incorporating many of the style guidelines.
 10. package.json
 11. 
+12. 

@@ -31,7 +31,7 @@ Always abide by the __Law of Code Style Consistency__, or, in other words, _when
 
 While the code base to which you want to contribute may be a horrific mess in terms of aesthetic appearance and style, style consistency takes precendent over personal preference and canon. The more consistent a code base is in terms of style, the more readers of the code can focus on what the code does rather than deciphering changes in style.
 
-So, if your peers commit various _faux pas_ outlined below, as long as you are contributing to their code base, abide by their conventions.
+So, even if your peers commit various _faux pas_ outlined below, as long as you are contributing to their code base, abide by their conventions.
 
 A code base--module, repository, application, library, etc--should always appear to have a single author and not be a schizophrenic franken-mess. 
 
@@ -889,11 +889,58 @@ x >> 0;
 
 
 
+## Documentation
+
+* Always.
+
+* Prefer too much to too little.
+
+``` javascript
+// Do:
+
+/**
+* FUNCTION: autocorr( vector )
+*	Given an input data vector, calculate its auto-correlation. To calculate the auto-correlation using an FFT, the data is padded to have length 2^n, where `n` is the next power of 2 greater than the vector length. For more details, consult {@link http://example.com}.
+*
+* @param {Array} vector - 1d array
+* @returns {Number} auto-correlation
+*/
+function autocorr( vector ) {
+	// Calculate...
+}
+
+
+// Don't:
+/**
+* FUNCTION: autocorr( vector )
+*	Calculates auto-correlation.
+*/
+function autocorr( vector ) {
+	// Calculate...
+}
+```
+
+* Strive to always include example/demo code that is easily runnable.
+
+* Make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
+
+
+
+
 
 ## Versioning
 
 * Use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
 
+``` javascript
+// Do:
+{
+	"version": "1.23.5"
+}
+
+// Don't:
+// filename: script_hmm_takes_thingy_and_makes_another_thingy_2000-01-01_version12_updated.js
+```
 
 
 
