@@ -15,6 +15,10 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Equality](#equality)
 1. 	[Blocks](#blocks)
 1. 	[Comments](#comments)
+1. 	[Naming](#naming)
+1. 	[Accessors](#accessors)
+1. 	[Method Chaining](#methodchaining)
+1. 	[Native JavaScript](#nativejavascript)
 
 
 ## Intro
@@ -282,7 +286,7 @@ function myFunction() {
 
 ## Equality
 
-* Always prefer `===` and `!==` to `==` and `!=`. No enforcing type equality is a source of bugs.
+* Always prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
 
 ``` javascript
 // Do:
@@ -459,6 +463,186 @@ function longFunction() {
 } // end FUNCTION longFunction()
 ```
 
+## Naming
+
+* Use camelCase for functions, objects, instances, and variables.
+
+``` javascript
+// Do:
+function testFunction() {
+	// Do something...
+}
+
+var myObject = {};
+
+var myInstance = new Instance();
+
+
+// Don't:
+function testfunction() {
+	// Do something...
+}
+
+var MyObject = {};
+
+var reallylongvariablename = 0;
+```
+
+* Use PascalCase for constructors.
+
+// Do:
+function Robot() {
+	this.name = 'Beep';
+	return this;
+}
+
+var robo = new Robot();
+
+
+// Don't:
+function robot() {
+	this.name = 'Boop';
+	return this;
+}
+
+var robo = new robot();
+```
+
+* Use a leading underscore when naming private properties.
+
+// Do:
+function Robot() {
+	this._private = true;
+	return this;
+}
+
+// Don't:
+function Robot() {
+	this.__private__ = true;
+	this.private_ = true;
+	return this;
+}
+```
+
+* When caching a reference to `this`, use `self`.
+
+``` javascript
+// Do:
+function Robot() {
+	var self = this;
+
+	this.name = 'Beep';
+	
+	return function Robo() {
+		return self;
+	}
+}
+```
+
+* Name all functions. Useful in stack traces.
+
+``` javascript
+// Do:
+request({
+	'method': 'GET',
+	'uri': 'http://127.0.0.1'
+}, function onResponse( error, response, body ) {
+	// Do something...
+});
+
+// Don't:
+request({
+	'method': 'GET',
+	'uri': 'http://127.0.0.1'
+}, function( error, response, body ) {
+	// Do something...
+});
+```
+
+
+## Accessors
+
+* Where appropriate, combine set/get into a single method.
+
+``` javascript
+// Do:
+Robot.prototype.name = function( name ) {
+	if ( !arguments.length ) {
+		return this._name;
+	}
+	if ( typeof name !== 'string' ) {
+		throw new Error( 'name()::invalid input value.' );
+	}
+	this._name = name;
+	return this;
+}
+
+// Don't:
+Robot.prototype.setName = function( name ) {
+	if ( typeof name !== 'string' ) {
+		throw new Error( 'name()::invalid input value.' );
+	}
+	this._name = name;
+	return this;
+}
+
+Robot.prototype.getName = function() {
+	return this._name;
+}
+```
+
+
+## Method Chaining
+
+* Return `this` to enable method chaining and to create a [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface).
+
+``` javascript
+function Robot() {
+	this._name = '';
+	this._color = 'black';
+	return this;
+}
+
+Robot.prototype.name = function( name ) {
+	if ( !arguments.length ) {
+		return this._name;
+	}
+	if ( typeof name !== 'string' ) {
+		throw new Error( 'name()::invalid input value.' );
+	}
+	this._name = name;
+	return this;
+}
+
+Robot.prototype.color = function( color ) {
+	if ( !arguments.length ) {
+		return this._color;
+	}
+	if ( typeof color !== 'string' ) {
+		throw new Error( 'color()::invalid input value.' );
+	}
+	this._color = color;
+	return this;
+}
+
+var robo = new Robot();
+
+robo.name( 'Robo' )
+	.color( 'pink' );
+```
+
+
+## Native JavaScript
+
+* Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript equivalents for DOM manipulation. Relying on such libraries leads to code bloat.
+
+``` javascript
+// Do:
+var el = document.querySelector( '#main' );
+
+// Don't:
+var el = $( '#main' );
+```
 
 
 
