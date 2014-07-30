@@ -7,6 +7,7 @@ _An opinionated style guide for writing JavaScript._
 ## Table of Contents
 
 1. 	[Intro](#intro)
+1. 	[General Principles](#general-principles)
 1. 	[Whitespace](#whitespace)
 1. 	[Semicolons](#semicolons)
 1. 	[Variables](#variables)
@@ -40,10 +41,12 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 
 
-## General
+## General Principles
 
 * Prefer standards to non-standards.
 * Do one thing and do one thing well.
+* Keep your code clean. Create a feature branch for experimental development, extensive annotations, and alternative implementations.
+
 
 
 
