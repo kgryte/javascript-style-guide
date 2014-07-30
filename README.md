@@ -23,6 +23,10 @@ So, if your peers commit various _faux pas_ outlined below, as long as you are c
 
 A code base--module, repository, application, library, etc--should always appear to have a single author and not be a schizophrenic franken-mess. 
 
+This stated, for those opportunities where are you the primary author, you should lead by example and write clean, readable, and testable code.
+
+Hopefully, most of the conventions outlined below will help enable you to do so.
+
 
 ## Arrays
 
