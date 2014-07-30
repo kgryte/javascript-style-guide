@@ -490,6 +490,7 @@ var reallylongvariablename = 0;
 
 * Use PascalCase for constructors.
 
+``` javascript
 // Do:
 function Robot() {
 	this.name = 'Beep';
