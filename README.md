@@ -153,7 +153,7 @@ z = z ++;
 */
 ```
 
-* Do not include space indention in your multi-line comments.
+* Do __not__ include space indention in your multi-line comments.
 
 ``` javascript
 // Do:
@@ -163,6 +163,7 @@ z = z ++;
 * The comment continues and continues...
 * ...until it no longer does.
 */
+
 
 // Don't:
 
@@ -542,7 +543,7 @@ function getEquation( a, b, c ) {
 	* @param {Number} e - dynamic value
 	* @returns {Number} equation output
 	*/
-	function eqn() {
+	function eqn( e ) {
 		return e - d + ( 15 * a ) + ( Math.pow( b, 1 / c ) );
 	}
 } // end FUNCTION getEquation()
@@ -643,7 +644,6 @@ function foo( value ) {
 // Don't:
 function foo( value ) {
 	var str;
-
 	if ( value === 'bar' ) {
 		str = 'Hello';
 	} else {
@@ -970,31 +970,31 @@ Robot.prototype.getName = function() {
 }
 ```
 
-* For public libraries, do type and sanity check input arguments. While checks do incur computational cost, not providing such checks can entail a considerable drain on a user's time. Subtle bugs can arise from using unexpected types. Be explicit in what you expect and write tests confirming your expectations. Your stringency helps other developer's debug their own code.
+* For public libraries, do type and sanity check input arguments. While checks do incur computational cost, not providing such checks can entail a considerable drain on a developer's time. Subtle bugs can arise from using unexpected types. Be explicit in what you expect and write tests confirming your expectations. Your stringency helps other developers debug their own code.
 
 ``` javascript
 // Do:
-Stream.prototype.window = function( window ) {
+Stream.prototype.window = function( win ) {
 	if ( !arguments.length ) {
 		return this._window;
 	}
-	if ( typeof window !== 'number' ||  window !== window ) {
+	if ( typeof win !== 'number' ||  win !== win ) {
 		throw new Error( 'window()::invalid input argument. Window size must be numeric.' );
 	}
-	window = parseInt( window, 10 );
-	if ( window <= 0 ) {
+	win = parseInt( win, 10 );
+	if ( win <= 0 ) {
 		throw new Error( 'window()::invalid input argument. Window size must be a positive integer' );
 	}
-	this._window = window;
+	this._window = win;
 	return this;
 }
 
 // Don't:
-Stream.prototype.window = function( window ) {
+Stream.prototype.window = function( win ) {
 	if ( !arguments.length ) {
 		return this._window;
 	}
-	this._window = window;
+	this._window = win;
 }
 ```
 
@@ -1070,7 +1070,7 @@ x = Math.floor( x );
 x >> 0;
 ``` 
 
-* Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and browser version to version.
+* Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and across browser versions.
 
 
 
@@ -1144,3 +1144,15 @@ function autocorr( vector ) {
 * [Popular Convention](http://sideeffect.kr/popularconvention/#javascript)
 * [Unix Philosophy](http://www.faqs.org/docs/artu/ch01s06.html)
 * [Semantic Versioning](https://github.com/mojombo/semver/blob/master/semver.md)
+
+
+
+## Author
+
+Athan Reines [(@kgryte)](http://twitter.com/kgryte). 2014.
+
+
+
+## License
+
+[MIT license](http://opensource.org/licenses/MIT). 
