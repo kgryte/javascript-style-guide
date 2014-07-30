@@ -45,7 +45,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 * Prefer standards to non-standards.
 * Do one thing and do one thing well.
-* Keep your code clean. Create a feature branch for experimental development, extensive annotations, and alternative implementations.
+* Keep your code clean. Create feature branches for experimental development, extensive annotations, and/or alternative implementations.
 
 
 
@@ -114,7 +114,7 @@ var a = 1 + 1;
 var a=1+1;
 ```
 
-* Do _not_ include a space before or after unary operators.
+* Do __not__ include a space before or after unary operators.
 
 ``` javascript
 // Do:
@@ -164,7 +164,7 @@ var svg = d3.select( '.main' )
 var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
 ```
 
-* Do _not_ introduce newlines between conditions.
+* Do __not__ introduce newlines between conditions.
 
 ``` javascript
 // Do:
@@ -417,7 +417,7 @@ var obj = {
 var obj = { 'a': null, 'b': 5, 'c': function() { return true; }, 'd': ( foo === bar ) ? foo : bar };
 ```
 
-* Do _not_ align object values.
+* Do __not__ align object values.
 
 ``` javascript
 // Do:
@@ -435,7 +435,7 @@ var obj = {
 	};
 ```
 
-* Do _not_ include a trailing comma.
+* Do __not__ include a trailing comma.
 
 ``` javascript
 // Do:
@@ -542,7 +542,7 @@ if ( foo != bar ) {
 
 ## Comments
 
-* Use `/** Comments */` for multine line comments.
+* Use `/** Comments */` for mult-line comments.
 
 ``` javascript
 // Do:
@@ -586,13 +586,13 @@ function transform( str ) {
 }
 ```
 
-* Do not include space indention in your multiline comments.
+* Do not include space indention in your multi-line comments.
 
 ``` javascript
 // Do:
 
 /**
-* This is a multiline comment.
+* This is a multi-line comment.
 * The comment continues and continues...
 * ...until it no longer does.
 */
@@ -600,13 +600,13 @@ function transform( str ) {
 // Don't:
 
 /**
- * This is a multiline comment.
+ * This is a multi-line comment.
  * The comment continues and continues...
  * ...until it no longer does.
  */
 ```
 
-* Use `//` for single line comments. Place the comment above the comment subject, and place an empty line above the comment.
+* Use `//` for single-line comments. Place the comment above the comment subject, and place an empty line above the comment.
 
 ``` javascript
 // Do:
