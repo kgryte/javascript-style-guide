@@ -510,6 +510,7 @@ var robo = new robot();
 
 * Use a leading underscore when naming private properties.
 
+``` javascript
 // Do:
 function Robot() {
 	this._private = true;
@@ -634,7 +635,7 @@ robo.name( 'Robo' )
 
 ## Native JavaScript
 
-* Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript equivalents for DOM manipulation. Relying on such libraries leads to code bloat.
+* Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
 
 ``` javascript
 // Do:
