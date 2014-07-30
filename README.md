@@ -3,13 +3,13 @@ JavaScript Style Guide
 
 ## Table of Contents
 
-	1. 	[Whitespace](#whitespace)
-	1. 	[Variables](#variables)
+1. 	[Whitespace](#whitespace)
+2. 	[Variables](#variables)
 
 
 ## Whitespace
 
-Use tab indentation. Tab indentation allows the developer to specify the space indentation equivalent in her editor. For example, in [Sublime Text](http://www.sublimetext.com/), specify in your user preferences
+Use tab indentation. Tab indentation allows the developer to specify the space indentation equivalent in her editor. For example, in [Sublime Text](http://www.sublimetext.com/), you can specify in your user preferences
 
 ```
 "tab_width": 4
