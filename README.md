@@ -153,6 +153,26 @@ z = z ++;
 */
 ```
 
+* Do not include space indention in your multi-line comments.
+
+``` javascript
+// Do:
+
+/**
+* This is a multi-line comment.
+* The comment continues and continues...
+* ...until it no longer does.
+*/
+
+// Don't:
+
+/**
+ * This is a multi-line comment.
+ * The comment continues and continues...
+ * ...until it no longer does.
+ */
+```
+
 * Indent when using method chaining.
 
 ``` javascript
@@ -721,26 +741,6 @@ function transform( str ) {
 function transform( str ) {
 	return str + ' has been transformed.';
 }
-```
-
-* Do not include space indention in your multi-line comments.
-
-``` javascript
-// Do:
-
-/**
-* This is a multi-line comment.
-* The comment continues and continues...
-* ...until it no longer does.
-*/
-
-// Don't:
-
-/**
- * This is a multi-line comment.
- * The comment continues and continues...
- * ...until it no longer does.
- */
 ```
 
 * Use `//` for single-line comments. Place the comment above the comment subject, and place an empty line above the comment.
