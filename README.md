@@ -12,14 +12,16 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Variables](#variables)
 1. 	[Strings](#strings)
 1. 	[Arrays](#arrays)
-1. 	[Equality](#equality)
 1. 	[Blocks](#blocks)
+1. 	[Equality](#equality)
 1. 	[Comments](#comments)
 1. 	[Naming](#naming)
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
 1. 	[Native JavaScript](#native-javascript)
+1. 	[Performance](#performance)
 1. 	[Versioning](#versioning)
+1. 	[Additional Resources](#additional-resources)
 
 
 ## Intro
@@ -36,6 +38,12 @@ This stated, for those opportunities where are you the primary author, you shoul
 
 Hopefully, most of the conventions outlined below will help enable you to do so.
 
+
+
+## General
+
+* Prefer standards to non-standards.
+* Do one thing and do one thing well.
 
 
 
@@ -103,6 +111,18 @@ var a = 1 + 1;
 var a=1+1;
 ```
 
+* Do _not_ include a space before or after unary operators.
+
+``` javascript
+// Do:
+x = ++y;
+z = z++;
+
+// Don't:
+x = ++ y;
+z = z ++;
+```
+
 * Include 1 space after comment marks.
 
 ``` javascript
@@ -139,6 +159,58 @@ var svg = d3.select( '.main' )
 
 // Don't:
 var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
+```
+
+* Do _not_ introduce newlines between conditions.
+
+``` javascript
+// Do:
+if ( foo === bar ) {
+	// Do something...
+} else if ( foo === beep ) {
+	// Do something else...
+} else {
+	// Do something different...
+}
+
+// Don't:
+if ( foo === bar ) {
+	// Do something...
+}
+else if ( foo === beep ) {
+	// Do something else...
+}
+else {
+	// Do something different...
+}
+```
+
+* Indent the `case` keyword within `switch` statements.
+
+``` javascript
+// Do:
+switch( foo ) {
+	case 'bar':
+		// Do something...
+		break;
+	case 'beep';
+		// Do something...
+		break;
+	default:
+		// Do something...
+}
+
+// Don't:
+switch( foo ) {
+case 'bar':
+	// Do something...
+	break;
+case 'beep';
+	// Do something...
+	break;
+default:
+	// Do something...
+}
 ```
 
 
@@ -323,20 +395,78 @@ for ( var i = 0; i < arguments.length; i++ ) {
 
 
 
-## Equality
+## Objects
 
-* Always prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
+* Do split object properties over multiple lines.
 
 ``` javascript
 // Do:
-if ( foo === bar ) {
-	// Do something...
-}
+var obj = {
+		'a': null,
+		'b': 5,
+		'c': function() {
+			return true;
+		},
+		'd': ( foo === bar ) ? foo : bar
+	};
 
 // Don't:
-if ( foo != bar ) {
+var obj = { 'a': null, 'b': 5, 'c': function() { return true; }, 'd': ( foo === bar ) ? foo : bar };
+```
+
+* Do _not_ align object values.
+
+``` javascript
+// Do:
+var obj = {
+		'prop': true,
+		'attribute': 'foo',
+		'name': 'bar'
+	};
+
+// Don't:
+var obj = {
+		'prop'     : true,
+		'attribute': 'foo',
+		'name'     : 'bar'
+	};
+```
+
+* Do _not_ include a trailing comma.
+
+``` javascript
+// Do:
+var obj = {
+		'prop': true,
+		'attribute': 'foo',
+		'name': 'bar'
+	};
+
+// Don't:
+var obj = {
+		'prop': true,
+		'attribute': 'foo',
+		'name': 'bar',
+	};
+```
+
+
+
+
+## Functions
+
+* Do place parentheses around immediately invoked function expressions (IIFE). Make a clear distinction between a function declaration and one that is immediately invoked.
+
+``` javascript
+// Do:
+(function init() {
 	// Do something...
-}
+})();
+
+// Don't:
+function init() {
+	// Do something...
+}();
 ```
 
 
@@ -377,6 +507,26 @@ if ( foo === bar )
 
 function query()
 {
+	// Do something...
+}
+```
+
+
+
+
+
+## Equality
+
+* Always prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
+
+``` javascript
+// Do:
+if ( foo === bar ) {
+	// Do something...
+}
+
+// Don't:
+if ( foo != bar ) {
 	// Do something...
 }
 ```
@@ -614,6 +764,16 @@ request({
 });
 ```
 
+* Do name constants in all CAPS.
+
+``` javascript
+// Do:
+var VALUE = 3.14;
+
+// Don't:
+var value = 3.14;
+```
+
 
 
 
@@ -709,6 +869,30 @@ var el = $( '#main' );
 
 
 
+## Performance
+
+* Prefer simplicity and readability over performance optimization. For example,
+
+``` javascript
+// Do:
+x = Math.floor( x );
+
+// Don't: (avoid using a bitshift unless you really need to)
+x >> 0;
+``` 
+
+* Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and browser version to version.
+
+
+
+
+
+## Versioning
+
+* Use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
+
+
+
 
 
 ## Additional Resources
@@ -717,3 +901,4 @@ var el = $( '#main' );
 * [Idiomatic.js](https://github.com/rwaldron/idiomatic.js/)
 * [Popular Convention](http://sideeffect.kr/popularconvention/#javascript)
 * [Unix Philosophy](http://www.faqs.org/docs/artu/ch01s06.html)
+* [Semantic Versioning](https://github.com/mojombo/semver/blob/master/semver.md)
