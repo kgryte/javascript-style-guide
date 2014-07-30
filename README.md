@@ -7,11 +7,11 @@ _An opinionated style guide for writing JavaScript._
 ## Table of Contents
 
 1. 	[Intro](#intro)
-1. 	[Arrays](#arrays)
-1. 	[Strings](#strings)
 1. 	[Whitespace](#whitespace)
 1. 	[Semicolons](#semicolons)
 1. 	[Variables](#variables)
+1. 	[Strings](#strings)
+1. 	[Arrays](#arrays)
 1. 	[Equality](#equality)
 1. 	[Blocks](#blocks)
 1. 	[Comments](#comments)
@@ -19,6 +19,7 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
 1. 	[Native JavaScript](#native-javascript)
+1. 	[Versioning](#versioning)
 
 
 ## Intro
@@ -35,77 +36,6 @@ This stated, for those opportunities where are you the primary author, you shoul
 
 Hopefully, most of the conventions outlined below will help enable you to do so.
 
-
-## Arrays
-
-* In general, use array literal syntax.
-
-``` javascript
-// Do:
-var arr = [];
-
-// Don't:
-var arr = new Array();
-```
-
-* Do instantiate a new array when you know the array length.
-
-``` javascript
-// Do:
-var arr = new Array( 100 );
-
-for ( var i = 0; i < arr.length; i++ ) {
-	arr[ i ] = Math.random();
-}
-
-// Don't:
-var arr = [];
-
-for ( var i = 0; i < 100; i++ ) {
-	arr.push( Math.random() );
-}
-```
-
-* Use `array.slice()` to copy an array ([JSPerf](http://jsperf.com/converting-arguments-to-an-array/7)).
-
-``` javascript
-// Do:
-var copy = arr.slice();
-
-// Don't:
-var copy = [];
-
-for ( var i = 0; i < arr.length; i++ ) {
-	copy.push( arr[ i ] );
-}
-```
-
-* To convert an array-like object to an array, use `array.slice()`.
-
-``` javascript
-// Do:
-var args = Array.prototype.slice.call( arguments );
-
-// Don't:
-var args = [];
-
-for ( var i = 0; i < arguments.length; i++ ) {
-	args.push( arguments[ i ] );
-}
-```
-
-
-## Strings
-
-* Use single quotes for strings.
-
-``` javascript
-// Do:
-var str = 'Hello';
-
-// Don't:
-var str = "Hello";
-```
 
 
 
@@ -173,6 +103,29 @@ var a = 1 + 1;
 var a=1+1;
 ```
 
+* Include 1 space after comment marks.
+
+``` javascript
+// Do:
+
+// This is a single-line comment.
+
+/**
+* This is a multi-
+* line comment.
+*/
+
+
+// Don't:
+
+//This is a single-line comment.
+
+/**
+*This is a mult-
+*line comment.
+*/
+```
+
 * Indent when using method chaining.
 
 ``` javascript
@@ -187,6 +140,9 @@ var svg = d3.select( '.main' )
 // Don't:
 var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
 ```
+
+
+
 
 
 ## Semicolons
@@ -204,6 +160,8 @@ if ( foo === bar ) {
 	return true
 }
 ```
+
+
 
 
 
@@ -284,6 +242,87 @@ function myFunction() {
 ```
 
 
+
+
+
+## Strings
+
+* Use single quotes for strings.
+
+``` javascript
+// Do:
+var str = 'Hello';
+
+// Don't:
+var str = "Hello";
+```
+
+
+
+
+
+
+## Arrays
+
+* In general, use array literal syntax.
+
+``` javascript
+// Do:
+var arr = [];
+
+// Don't:
+var arr = new Array();
+```
+
+* Do instantiate a new array when you know the array length.
+
+``` javascript
+// Do:
+var arr = new Array( 100 );
+
+for ( var i = 0; i < arr.length; i++ ) {
+	arr[ i ] = Math.random();
+}
+
+// Don't:
+var arr = [];
+
+for ( var i = 0; i < 100; i++ ) {
+	arr.push( Math.random() );
+}
+```
+
+* Use `array.slice()` to copy an array ([JSPerf](http://jsperf.com/converting-arguments-to-an-array/7)).
+
+``` javascript
+// Do:
+var copy = arr.slice();
+
+// Don't:
+var copy = [];
+
+for ( var i = 0; i < arr.length; i++ ) {
+	copy.push( arr[ i ] );
+}
+```
+
+* To convert an array-like object to an array, use `array.slice()`.
+
+``` javascript
+// Do:
+var args = Array.prototype.slice.call( arguments );
+
+// Don't:
+var args = [];
+
+for ( var i = 0; i < arguments.length; i++ ) {
+	args.push( arguments[ i ] );
+}
+```
+
+
+
+
 ## Equality
 
 * Always prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
@@ -299,6 +338,9 @@ if ( foo != bar ) {
 	// Do something...
 }
 ```
+
+
+
 
 
 ## Blocks
@@ -338,6 +380,11 @@ function query()
 	// Do something...
 }
 ```
+
+
+
+
+
 
 
 ## Comments
@@ -463,6 +510,12 @@ function longFunction() {
 } // end FUNCTION longFunction()
 ```
 
+
+
+
+
+
+
 ## Naming
 
 * Use camelCase for functions, objects, instances, and variables.
@@ -492,21 +545,21 @@ var reallylongvariablename = 0;
 
 ``` javascript
 // Do:
-function Robot() {
+function RoboRobot() {
 	this.name = 'Beep';
 	return this;
 }
 
-var robo = new Robot();
+var robo = new RoboRobot();
 
 
 // Don't:
-function robot() {
+function roboRobot() {
 	this.name = 'Boop';
 	return this;
 }
 
-var robo = new robot();
+var robo = new roboRobot();
 ```
 
 * Use a leading underscore when naming private properties.
@@ -562,6 +615,9 @@ request({
 ```
 
 
+
+
+
 ## Setters and Getters
 
 * Where appropriate, combine set/get into a single method.
@@ -592,6 +648,8 @@ Robot.prototype.getName = function() {
 	return this._name;
 }
 ```
+
+
 
 
 ## Method Chaining
@@ -634,6 +692,9 @@ robo.name( 'Robo' )
 ```
 
 
+
+
+
 ## Native JavaScript
 
 * Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
@@ -645,6 +706,8 @@ var el = document.querySelector( '#main' );
 // Don't:
 var el = $( '#main' );
 ```
+
+
 
 
 
