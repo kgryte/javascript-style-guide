@@ -10,17 +10,21 @@ _An opinionated style guide for writing JavaScript._
 1. 	[General Principles](#general-principles)
 1. 	[Whitespace](#whitespace)
 1. 	[Semicolons](#semicolons)
+1. 	[Parentheses](#parentheses)
 1. 	[Variables](#variables)
 1. 	[Strings](#strings)
 1. 	[Arrays](#arrays)
+1. 	[Functions](#functions)
 1. 	[Blocks](#blocks)
 1. 	[Equality](#equality)
 1. 	[Comments](#comments)
 1. 	[Naming](#naming)
+1. 	[This](#this)
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
 1. 	[Native JavaScript](#native-javascript)
 1. 	[Performance](#performance)
+1. 	[Documentation](#documentation)
 1. 	[Versioning](#versioning)
 1. 	[Additional Resources](#additional-resources)
 
@@ -236,6 +240,30 @@ if ( foo === bar ) {
 }
 ```
 
+
+
+
+## Parentheses
+
+* Do include parentheses to visually reinforce order of operations.
+
+``` javascript
+// Do:
+var a = ( b * c ) + 5;
+
+// Don't:
+var a = b * c + 5;
+```
+
+* Do include parentheses around the test in ternary operators.
+
+``` javascript
+// Do:
+var foo = ( a === b ) ? a*3 : b/4;
+
+// Don't:
+var foo = a === b ? a*3 : b/4;
+```
 
 
 
@@ -472,6 +500,72 @@ function init() {
 }();
 ```
 
+* Do place enclosed functions below the `return` statement.
+
+``` javascript
+// Do:
+function getEquation( a, b, c ) {
+	var d;
+
+	a = 3 * a;
+	b = a / 5;
+	c = Math.pow( b, 3 );
+
+	d = a + ( b / c );
+
+	return eqn;
+
+	/**
+	* FUNCTION: eqn( e )
+	*	Computes a complex equation.
+	*
+	* @param {Number} e - dynamic value
+	* @returns {Number} equation output
+	*/
+	function eqn() {
+		return e - d + ( 15 * a ) + ( Math.pow( b, 1 / c ) );
+	}
+} // end FUNCTION getEquation()
+```
+
+* Prefer primitive expressions over their functional counterparts. Unnecessary function calls introduce additional overhead.
+
+``` javascript
+var squared = new Array( arr.length );
+
+// Do:
+for ( var i = 0; i < arr.length; i++ ) {
+	squared[ i ] = arr[ i ] * arr[ i ];
+}
+
+// Don't:
+squared = arr.map( function( value ) {
+	return value * value;
+});
+```
+
+* Asynchronous callbacks requiring error handling should have an `error` parameter as their first argument. If no errors, `error` should be set to `null`.
+
+``` javascript
+// Do:
+function clbk( error, value ) {
+	if ( error ) {
+		return;
+	}
+	console.log( value );
+}
+
+request({
+	'method': 'GET',
+	'uri': 'http://127.0.0.1'
+}, function onResponse( error, response, body ) {
+	if ( error ) {
+		clbk( error );
+		return;
+	}
+	clbk( null, body );
+});
+```
 
 
 
@@ -514,6 +608,49 @@ function query()
 }
 ```
 
+
+* Do early `return`.
+
+``` javascript
+// Do:
+function foo( value ) {
+	if ( value === 'bar' ) {
+		return 'Hello';
+	}
+	return 'Goodbye';
+}
+
+// Don't:
+function foo( value ) {
+	var str;
+
+	if ( value === 'bar' ) {
+		str = 'Hello';
+	} else {
+		str = 'Goodbye';
+	}
+	return str;
+}
+```
+
+* Do early `continue`.
+
+``` javascript
+// Do:
+for ( var i = 0; i < 10; i++ ) {
+	if ( i === 5 ) {
+		continue;
+	}
+	// Do something...
+}
+
+// Don't:
+for ( var i = 0; i < 10; i++ ) {
+	if ( i !== 5 ) {
+		// Do something...
+	}
+}
+```
 
 
 
@@ -732,21 +869,6 @@ function Robot() {
 }
 ```
 
-* When caching a reference to `this`, use `self`.
-
-``` javascript
-// Do:
-function Robot() {
-	var self = this;
-
-	this.name = 'Beep';
-	
-	return function Robo() {
-		return self;
-	}
-}
-```
-
 * Name all functions. Useful in stack traces.
 
 ``` javascript
@@ -780,6 +902,42 @@ var value = 3.14;
 
 
 
+## This
+
+* When caching a reference to `this`, use `self`.
+
+``` javascript
+// Do:
+function Robot() {
+	var self = this;
+
+	this.name = 'Beep';
+	
+	return function Robo() {
+		return self;
+	}
+}
+```
+
+* Alternatively, to avoid aliasing `this` altogether, `bind` the function context.
+
+``` javascript
+// Do:
+function robo() {
+	return this;
+}
+
+function Robot() {
+	this.name = 'Beep';
+	robo.bind( this );
+	return robo;
+}
+```
+
+
+
+
+
 
 ## Setters and Getters
 
@@ -809,6 +967,34 @@ Robot.prototype.setName = function( name ) {
 
 Robot.prototype.getName = function() {
 	return this._name;
+}
+```
+
+* For public libraries, do type and sanity check input arguments. While checks do incur computational cost, not providing such checks can entail a considerable drain on a user's time. Subtle bugs can arise from using unexpected types. Be explicit in what you expect and write tests confirming your expectations. Your stringency helps other developer's debug their own code.
+
+``` javascript
+// Do:
+Stream.prototype.window = function( window ) {
+	if ( !arguments.length ) {
+		return this._window;
+	}
+	if ( typeof window !== 'number' ||  window !== window ) {
+		throw new Error( 'window()::invalid input argument. Window size must be numeric.' );
+	}
+	window = parseInt( window, 10 );
+	if ( window <= 0 ) {
+		throw new Error( 'window()::invalid input argument. Window size must be a positive integer' );
+	}
+	this._window = window;
+	return this;
+}
+
+// Don't:
+Stream.prototype.window = function( window ) {
+	if ( !arguments.length ) {
+		return this._window;
+	}
+	this._window = window;
 }
 ```
 
@@ -891,7 +1077,7 @@ x >> 0;
 
 ## Documentation
 
-* Always.
+* __Always.__
 
 * Prefer too much to too little.
 
@@ -920,7 +1106,13 @@ function autocorr( vector ) {
 }
 ```
 
+* For client-side JavaScript, if you are concerned about file size, build/include a distributable file, stripped of comments and minified. Keep your source annotated.
+
 * Strive to always include example/demo code that is easily runnable.
+
+* Do __not__ claim that your code is self-documenting. Your code is not. __Period.__
+
+* Do not rely on tests as your sole source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
 
 * Make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
 
