@@ -10,7 +10,11 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Arrays](#arrays)
 1. 	[Strings](#strings)
 1. 	[Whitespace](#whitespace)
+1. 	[Semicolons](#semicolons)
 1. 	[Variables](#variables)
+1. 	[Equality](#equality)
+1. 	[Blocks](#blocks)
+1. 	[Comments](#comments)
 
 
 ## Intro
@@ -109,8 +113,93 @@ var str = "Hello";
 "tab_width": 4
 ```
 
-Even if you must use spaces, __never__ mix tabs and spaces. This is formatting hell, as a simple find-and-replace is helpless in the face of such chaos.
+* Even if you must use spaces, __never__ mix tabs and spaces. This is formatting hell, as a simple find-and-replace is useless in the face of such chaos.
 
+* Include 1 space before a leading brace.
+
+``` javascript
+// Do:
+function query() {
+	// Do something...
+}
+
+// Don't:
+function query(){
+	// Do something...
+}
+```
+
+* Include 1 space before and after arguments for readability.
+
+``` javascript
+// Do:
+function test( arg1, arg2, arg3 ) {
+	// Do something...
+}
+
+// Don't:
+function test(arg1,arg2,arg3) {
+	// Do something...
+}
+```
+
+* Include 1 space before and after array indices (when readability is maintained).
+
+``` javascript
+// Do:
+var foo = bar[ 10 ];
+
+// Don't:
+var foo = bar[10];
+```
+
+* Use discretion when using spaces around array indices buried in braces.
+
+``` javascript
+var foo = myFunction( ( a === b ) ? bar[0] : bar[1] ) );
+```
+
+* Include 1 space before and after operators.
+
+``` javascript
+// Do:
+var a = 1 + 1;
+
+// Don't:
+var a=1+1;
+```
+
+* Indent when using method chaining.
+
+``` javascript
+// Do:
+var svg = d3.select( '.main' )
+	.append( 'svg:svg' )
+		.attr( 'class', 'canvas' )
+		.attr( 'data-id', Date.now() )
+		.attr( 'width', 100 )
+		.attr( 'height', 100 );
+
+// Don't:
+var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
+```
+
+
+## Semicolons
+
+* Always use semicolons. Missing semicolons are a source of bugs.
+
+``` javascript
+// Do:
+if ( foo === bar ) {
+	return true;
+}
+
+// Don't:
+if ( foo === bar ) {
+	return true
+}
+```
 
 
 
@@ -163,7 +252,7 @@ var beep = false;
 var boop = 'hello';
 ```
 
-* Do declare variables at the top of their scope. Doing so makes explicit variable hoisting.
+* Do declare variables at the top of their scope. Doing so makes variable hoisting explicit.
 
 ``` javascript
 // Do:
@@ -189,6 +278,187 @@ function myFunction() {
 	var bar = foo * 5;
 }
 ```
+
+
+## Equality
+
+* Always prefer `===` and `!==` to `==` and `!=`. No enforcing type equality is a source of bugs.
+
+``` javascript
+// Do:
+if ( foo === bar ) {
+	// Do something...
+}
+
+// Don't:
+if ( foo != bar ) {
+	// Do something...
+}
+```
+
+
+## Blocks
+
+* Always use curly braces. Not using them is a common source of bugs.
+
+``` javascript
+// Do:
+if ( foo === bar ) {
+	return true;
+}
+
+// Don't:
+if ( foo === bar ) return true;
+```
+
+* Always place the leading brace on the same line.
+
+``` javascript
+// Do:
+if ( foo === bar ) {
+	// Do something...
+}
+
+function query() {
+	// Do something...
+}
+
+// Don't:
+if ( foo === bar )
+{
+	// Do something...
+}
+
+function query()
+{
+	// Do something...
+}
+```
+
+
+## Comments
+
+* Use `/** Comments */` for multine line comments.
+
+``` javascript
+// Do:
+
+/**
+* FUNCTION: beep()
+*	Beep to go boop.
+*/
+function beep() {
+	// Do something...
+}
+
+// Don't:
+
+// FUNCTION: beep()
+//	Beep to go boop.
+function beep() {
+	// Do something...
+}
+```
+
+* Do use [JSDoc](http://usejsdoc.org/#Getting_Started) and do so for every function. Be sure to include descriptions, parameters, and other information.
+
+``` javascript
+// Do:
+
+/**
+* FUNCTION: transform( str )
+*	String transformer.
+*
+* @param {String} str - string to be transformed.
+* @returns {String} transformed string
+*/
+function transform( str ) {
+	return str + ' has been transformed.';
+}
+
+// Don't:
+function transform( str ) {
+	return str + ' has been transformed.';
+}
+```
+
+* Do not include space indention in your multiline comments.
+
+``` javascript
+// Do:
+
+/**
+* This is a multiline comment.
+* The comment continues and continues...
+* ...until it no longer does.
+*/
+
+// Don't:
+
+/**
+ * This is a multiline comment.
+ * The comment continues and continues...
+ * ...until it no longer does.
+ */
+```
+
+* Use `//` for single line comments. Place the comment above the comment subject, and place an empty line above the comment.
+
+``` javascript
+// Do:
+
+// Set the default value to null.
+var foo = bar || null;
+
+
+// Don't:
+var foo = bar || null; // set the default value to null.
+```
+
+* Use `// FIXME:` to annotate problems.
+
+``` javascript
+// FIXME: misses the case where value is 0. Want to check if value is not numeric.
+if ( !value ) {
+	return false;
+}
+```
+
+* Use `// TODO:` to annotate tasks.
+
+``` javascript
+function Ctor() {
+
+	// TODO: make `name` property value publicly accessible.
+	this.name = 'foobar';
+
+	return this;
+}
+```
+
+* Do comment closing braces. Doing so helps lessen bracket hell when dealing with long code blocks.
+
+``` javascript
+function longFunction() {
+	
+	// [0] Do first thing.
+	firstThing();
+
+	// [1] Do second thing.
+	secondThing();
+
+	// [2] Do third thing.
+	thirdThing();
+
+	// ...
+
+	// [N-1] Do Nth thing.
+	nthThing(); 
+
+	return true;
+} // end FUNCTION longFunction()
+```
+
 
 
 
