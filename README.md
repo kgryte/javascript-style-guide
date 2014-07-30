@@ -27,6 +27,7 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Documentation](#documentation)
 1. 	[Versioning](#versioning)
 1. 	[Additional Resources](#additional-resources)
+1. 	[License](#license)
 
 
 ## Intro
