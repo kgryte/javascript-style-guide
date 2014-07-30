@@ -16,9 +16,9 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Blocks](#blocks)
 1. 	[Comments](#comments)
 1. 	[Naming](#naming)
-1. 	[Accessors](#accessors)
-1. 	[Method Chaining](#methodchaining)
-1. 	[Native JavaScript](#nativejavascript)
+1. 	[Setters and Getters](#setters-and-getters)
+1. 	[Method Chaining](#method-chaining)
+1. 	[Native JavaScript](#native-javascript)
 
 
 ## Intro
@@ -560,7 +560,7 @@ request({
 ```
 
 
-## Accessors
+## Setters and Getters
 
 * Where appropriate, combine set/get into a single method.
 
