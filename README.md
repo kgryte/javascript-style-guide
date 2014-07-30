@@ -652,4 +652,5 @@ var el = $( '#main' );
 
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 * [Idiomatic.js](https://github.com/rwaldron/idiomatic.js/)
-
+* [Populate Convention](http://sideeffect.kr/popularconvention/#javascript)
+* [Unix Philosophy](http://www.faqs.org/docs/artu/ch01s06.html)
