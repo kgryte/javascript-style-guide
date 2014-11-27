@@ -15,6 +15,7 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Strings](#strings)
 1. 	[Arrays](#arrays)
 1. 	[Functions](#functions)
+1. 	[Regular Expression](#regular-expressions)
 1. 	[Blocks](#blocks)
 1. 	[Equality](#equality)
 1. 	[Comments](#comments)
