@@ -23,6 +23,7 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
 1. 	[Native JavaScript](#native-javascript)
+1. 	[Strict Mode](#strict-mode)
 1. 	[Performance](#performance)
 1. 	[Documentation](#documentation)
 1. 	[Versioning](#versioning)
@@ -103,7 +104,7 @@ var foo = bar[ 10 ];
 var foo = bar[10];
 ```
 
-* Use discretion when using spaces around array indices buried in braces.
+* Use discretion when using spaces around `array` indices buried in braces.
 
 ``` javascript
 var foo = myFunction( ( a === b ) ? bar[0] : bar[1] ) );
@@ -190,14 +191,12 @@ var svg = d3.select( '.main' )
 var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
 ```
 
-* Do __not__ introduce newlines between conditions.
+* In general, do __not__ introduce newlines between conditions.
 
 ``` javascript
 // Do:
 if ( foo === bar ) {
 	// Do something...
-} else if ( foo === beep ) {
-	// Do something else...
 } else {
 	// Do something different...
 }
@@ -206,13 +205,42 @@ if ( foo === bar ) {
 if ( foo === bar ) {
 	// Do something...
 }
+else {
+	// Do something different...
+}
+```
+
+* Use discretion when faced with multiple conditions.
+
+``` javascript
+
+// Do:
+if ( foo === bar ) {
+	// Do something...
+} else if ( foo === beep ) {
+	// Do something else...
+} else if ( bar === bar ) {
+	// Do something more...
+} else {
+	// Do something different...
+}
+
+// Okay:
+if ( foo === bar ) {
+	// Do something...
+}
 else if ( foo === beep ) {
 	// Do something else...
+}
+else if ( baz === bar ) {
+	// Do something more...
 }
 else {
 	// Do something different...
 }
 ```
+
+
 
 * Indent the `case` keyword within `switch` statements.
 
@@ -372,7 +400,7 @@ function myFunction() {
 
 ## Strings
 
-* Use single quotes for strings.
+* Use single quotes for `strings`.
 
 ``` javascript
 // Do:
@@ -389,7 +417,7 @@ var str = "Hello";
 
 ## Arrays
 
-* In general, use array literal syntax.
+* In general, use `array` literal syntax.
 
 ``` javascript
 // Do:
@@ -399,7 +427,7 @@ var arr = [];
 var arr = new Array();
 ```
 
-* Do instantiate a new array when you know the array length.
+* Do instantiate a new `array` when you know the `array` length and the `array` length is [less than](https://github.com/thlorenz/v8-perf/blob/master/data-types.md#fast-elements) `64K` elements.
 
 ``` javascript
 // Do:
@@ -417,7 +445,7 @@ for ( var i = 0; i < 100; i++ ) {
 }
 ```
 
-* Use `array.slice()` to copy an array ([JSPerf](http://jsperf.com/converting-arguments-to-an-array/7)).
+* Use `array.slice()` to copy an `array` ([JSPerf](http://jsperf.com/converting-arguments-to-an-array/7)).
 
 ``` javascript
 // Do:
@@ -431,7 +459,7 @@ for ( var i = 0; i < arr.length; i++ ) {
 }
 ```
 
-* To convert an array-like object to an array, use `array.slice()`.
+* To convert an array-like object to an `array`, use `array.slice()`.
 
 ``` javascript
 // Do:
@@ -455,13 +483,13 @@ for ( var i = 0; i < arguments.length; i++ ) {
 ``` javascript
 // Do:
 var obj = {
-		'a': null,
-		'b': 5,
-		'c': function() {
-			return true;
-		},
-		'd': ( foo === bar ) ? foo : bar
-	};
+	'a': null,
+	'b': 5,
+	'c': function() {
+		return true;
+	},
+	'd': ( foo === bar ) ? foo : bar
+};
 
 // Don't:
 var obj = { 'a': null, 'b': 5, 'c': function() { return true; }, 'd': ( foo === bar ) ? foo : bar };
@@ -472,17 +500,17 @@ var obj = { 'a': null, 'b': 5, 'c': function() { return true; }, 'd': ( foo === 
 ``` javascript
 // Do:
 var obj = {
-		'prop': true,
-		'attribute': 'foo',
-		'name': 'bar'
-	};
+	'prop': true,
+	'attribute': 'foo',
+	'name': 'bar'
+};
 
 // Don't:
 var obj = {
-		'prop'     : true,
-		'attribute': 'foo',
-		'name'     : 'bar'
-	};
+	'prop'     : true,
+	'attribute': 'foo',
+	'name'     : 'bar'
+};
 ```
 
 * Do __not__ include a trailing comma.
@@ -490,23 +518,116 @@ var obj = {
 ``` javascript
 // Do:
 var obj = {
-		'prop': true,
-		'attribute': 'foo',
-		'name': 'bar'
-	};
+	'prop': true,
+	'attribute': 'foo',
+	'name': 'bar'
+};
 
 // Don't:
 var obj = {
-		'prop': true,
-		'attribute': 'foo',
-		'name': 'bar',
-	};
+	'prop': true,
+	'attribute': 'foo',
+	'name': 'bar',
+};
 ```
 
 
 
 
 ## Functions
+
+* In general, do declare functions using [function statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function), rather than [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function). This avoids problems encountered due to [hoisting](https://github.com/buildfirst/buildfirst/tree/master/ch05/04_hoisting).
+
+``` javascript
+// Do:
+function beep() {
+	console.log( 'boop' );
+}
+
+// Don't:
+var beep = function() {
+	console.log( 'boop' );
+}
+```
+
+* Do minimize closures and declare functions at the highest possible scope.
+
+``` javascript
+// Do:
+function beep() {
+	boop();
+}
+
+function boop() {
+	// Do something...
+}
+
+// Don't:
+function beep() {
+	boop();
+	function boop() {
+		// Do something...
+	}
+}
+```
+
+* Do __not__ declare functions inside `for` loops and `conditions`.
+
+``` javascript
+// Do:
+function beep( idx, clbk ) {
+	clbk( 'beep'+i );
+}
+function bop( msg ) {
+	console.log( msg );
+}
+
+for ( var i = 0; i < 10; i++ ) {
+	beep( i, bop );
+}
+
+// Don't:
+for ( var i = 0; i < 10; i++ ) {
+	beep( i, function bop( msg ) {
+		console.log( msg );
+	});
+}
+
+// Do:
+function onTimeout( idx ) {
+	return function onTimeout() {
+		console.log( idx );
+	};
+}
+for ( var i = 0; i < 10; i++ ) {
+	setTimeout( onTimeout( i ), 1000 );
+}
+
+// Don't:
+for ( var i = 0; i < 10; i++ ) {
+	setTimeout( function onTimeout() {
+		console.log( i );
+	}, 1000 );
+}
+
+// Do:
+function bap() {
+	// Do something...
+}
+if ( i < 11 ) {
+	bap();
+}
+
+// Don't:
+if ( i < 11 ) {
+	bap();
+	function bap() {
+		// Do something...
+	}
+}
+```
+
+
 
 * Do place parentheses around immediately invoked function expressions (IIFE). Make a clear distinction between a function declaration and one that is immediately invoked.
 
@@ -589,6 +710,32 @@ request({
 });
 ```
 
+
+## Regular Expressions
+
+* Do assign regular expressions to variables rather than using them inline.
+
+``` javascript
+// Do:
+var regex = /\.+/;
+
+beep();
+
+function beep( str ) {
+	if ( regex.test( str ) ) {
+		// Do something...
+	}
+}
+
+// Don't:
+beep();
+
+function beep( str ) {
+	if ( /\.+/.test( str ) ) {
+		// Do something...
+	}
+}
+```
 
 
 
@@ -777,6 +924,7 @@ function Ctor() {
 	return this;
 }
 ```
+
 
 * Do comment closing braces. Doing so helps lessen bracket hell when dealing with long code blocks.
 
@@ -982,8 +1130,7 @@ Stream.prototype.window = function( win ) {
 	if ( typeof win !== 'number' ||  win !== win ) {
 		throw new Error( 'window()::invalid input argument. Window size must be numeric.' );
 	}
-	win = parseInt( win, 10 );
-	if ( win <= 0 ) {
+	if ( Math.floor( win ) !== win || win <= 0 ) {
 		throw new Error( 'window()::invalid input argument. Window size must be a positive integer' );
 	}
 	this._window = win;
@@ -1057,6 +1204,10 @@ var el = document.querySelector( '#main' );
 var el = $( '#main' );
 ```
 
+
+## Strict Mode
+
+* Always write JavaScript in `strict` [mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). Doing so discourages bad practices, avoids silent errors, and can result in better performance, as the compiler can make certain assumptions about the code.
 
 
 ## Performance
@@ -1143,6 +1294,7 @@ function autocorr( vector ) {
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 * [Idiomatic.js](https://github.com/rwaldron/idiomatic.js/)
 * [Popular Convention](http://sideeffect.kr/popularconvention/#javascript)
+* [JavaScript Quality Guide](https://github.com/bevacqua/js)
 * [Unix Philosophy](http://www.faqs.org/docs/artu/ch01s06.html)
 * [Semantic Versioning](https://github.com/mojombo/semver/blob/master/semver.md)
 

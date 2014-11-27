@@ -2,7 +2,7 @@ TODO
 ====
 
 1. 	Callbacks; prefer closures and function factories.
-2. 	Top-of-file description, todo, fixme, dependencies, notes, etc.
+2. 	Top-of-file description/manifest, todo, fixme, notes, etc.
 3. 	Applications
 	* 	readmes
 	* 	tests
@@ -12,8 +12,8 @@ TODO
 5. 	namespace client-side globals
 6. 	Do one thing; do one thing well
 7. 	wrap client-side code in IIFE
-8. 	use strict (may use IIFE in node)
+8. 	
 9. 	Create an example file incorporating many of the style guidelines.
 10. package.json (include example)
-11. HACK/NOTE additions to TODO/FIXME?
+11. HACK/NOTE/WARNING additions to TODO/FIXME?
 12. Github commit message / git flow --> [UPDATE|FIX|TESTS|EXAMPLES]
