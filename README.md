@@ -95,7 +95,7 @@ function test(arg1,arg2,arg3) {
 }
 ```
 
-* Include 1 space before and after array indices (when readability is maintained).
+* Include 1 space before and after `array` indices (when readability is maintained).
 
 ``` javascript
 // Do:
