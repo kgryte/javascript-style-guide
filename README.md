@@ -36,7 +36,7 @@ _An opinionated style guide for writing JavaScript._
 
 Always abide by the __Law of Code Style Consistency__, or, in other words, _when in Rome, do as the Romans do_. 
 
-While the code base to which you want to contribute may be a horrific mess in terms of aesthetic appearance and style, style consistency takes precendent over personal preference and canon. The more consistent a code base is in terms of style, the more readers of the code can focus on what the code does rather than deciphering changes in style.
+While the code base to which you want to contribute may be a horrific mess in terms of aesthetic appearance and style, style consistency takes precedent over personal preference and canon. The more consistent a code base is in terms of style, the more readers of the code can focus on what the code does rather than deciphering changes in style.
 
 So, even if your peers commit various _faux pas_ outlined below, as long as you are contributing to their code base, abide by their conventions.
 
@@ -446,32 +446,20 @@ for ( var i = 0; i < 100; i++ ) {
 }
 ```
 
-* Use `array.slice()` to copy an `array` ([JSPerf](http://jsperf.com/converting-arguments-to-an-array/7)).
+
+* To convert an array-like object to an `array`, use a `for` loop.
 
 ``` javascript
 // Do:
-var copy = arr.slice();
+var nargs = arguments.length,
+	args = new Array( nargs );
+
+for ( var i = 0; i < nargs; i++ ) {
+	args[ i ] = arguments[ i ];
+}
 
 // Don't:
-var copy = [];
-
-for ( var i = 0; i < arr.length; i++ ) {
-	copy.push( arr[ i ] );
-}
-```
-
-* To convert an array-like object to an `array`, use `array.slice()`.
-
-``` javascript
-// Do:
 var args = Array.prototype.slice.call( arguments );
-
-// Don't:
-var args = [];
-
-for ( var i = 0; i < arguments.length; i++ ) {
-	args.push( arguments[ i ] );
-}
 ```
 
 
@@ -926,6 +914,31 @@ function Ctor() {
 }
 ```
 
+* Use `// HACK:` to annotate fragile/non-general solutions.
+
+``` javascript
+// HACK: temporary fix; host and port should be abstracted to another module.
+var host = '127.0.0.1',
+	port = 7331;
+```
+
+* Use `// WARNING:` to annotate possible gotchas/pitfalls.
+
+``` javascript
+// WARNING: shared reference of a mutable object; possible side effects.
+var a = b = {};
+```
+
+* Use `// NOTE:` to annotate questions, comments, or anything which does not fit under `TODO`/`FIXME`/`HACK`/`WARNING` which should be brought to a user's attention.
+
+``` javascript
+// NOTE: consider optimizing this for large arrays (len > 64K).
+var arr = new Array( len );
+for ( var i = 0; i < len; i++ ) {
+	arr[ i ] = Math.random();
+}
+```
+
 
 * Do comment closing braces. Doing so helps lessen bracket hell when dealing with long code blocks.
 
@@ -1069,10 +1082,10 @@ function Robot() {
 }
 ```
 
-* Alternatively, to avoid aliasing `this` altogether, `bind` the function context.
+* Avoid using `bind` (performance).
 
 ``` javascript
-// Do:
+// Don't:
 function robo() {
 	return this;
 }
@@ -1303,7 +1316,7 @@ function autocorr( vector ) {
 
 ## Author
 
-Athan Reines [(@kgryte)](http://twitter.com/kgryte). 2014.
+Athan Reines [(@kgryte)](http://twitter.com/kgryte). 2014-2015.
 
 
 

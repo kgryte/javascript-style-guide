@@ -2,7 +2,9 @@ TODO
 ====
 
 1. 	Callbacks; prefer closures and function factories.
-2. 	Top-of-file description/manifest, todo, fixme, notes, etc.
+2. 	arguments
+	-	perf when using `arguments` in JS body and then reassigning named argument value
+		-	compiler cannot optimize
 3. 	Applications
 	* 	readmes
 	* 	tests
@@ -15,5 +17,5 @@ TODO
 8. 	
 9. 	Create an example file incorporating many of the style guidelines.
 10. package.json (include example)
-11. HACK/NOTE/WARNING additions to TODO/FIXME?
+11. 
 12. Github commit message / git flow --> [UPDATE|FIX|TESTS|EXAMPLES]
