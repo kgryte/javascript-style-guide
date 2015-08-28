@@ -14,6 +14,7 @@ JavaScript Style Guide
 1. 	[Strings](#strings)
 1. 	[Arrays](#arrays)
 1. 	[Functions](#functions)
+1. 	[Strict Mode](#strict-mode)
 1. 	[Arguments](#arguments)
 1. 	[Regular Expressions](#regular-expressions)
 1. 	[Blocks](#blocks)
@@ -24,11 +25,10 @@ JavaScript Style Guide
 1.  [Classes](#classes)
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
-1. 	[Strict Mode](#strict-mode)
-1. 	[Performance](#performance)
 1. 	[Documentation](#documentation)
-1. 	[Client-side JavaScript](#client-side-javascript)
+1. 	[Performance](#performance)
 1.  [Modularity](#modularity)
+1. 	[Client-side JavaScript](#client-side-javascript)
 1. 	[Versioning](#versioning)
 1. 	[Additional Resources](#additional-resources)
 1. 	[License](#license)
@@ -803,6 +803,27 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 ---
+## Strict Mode
+
+*	__Always__ write JavaScript in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). Doing so discourages bad practices, avoids silent errors, and can result in better performance, as the compiler can make certain assumptions about the code.
+
+	``` javascript
+	'use strict';
+
+	NaN = null; // throws an Error
+	```
+
+*	Prefer [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) for a whole script. If not possible, use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) for each available `function`.
+
+	``` javascript
+	function beep() {
+		'use strict';
+		delete Object.prototype; // throws an Error
+	}
+	```
+
+
+---
 ## Arguments
 
 *	__Never__ pass the `arguments` variable to another `function`, including copying the contents to an `array`. Doing so automatically puts the `function` in optimization hell.
@@ -1426,29 +1447,6 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 ---
-## Strict Mode
-
-*	__Always__ write JavaScript in `strict` [mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). Doing so discourages bad practices, avoids silent errors, and can result in better performance, as the compiler can make certain assumptions about the code.
-
-
----
-## Performance
-
-* 	Prefer simplicity and readability over performance optimization. For example,
-
-	``` javascript
-	// Do:
-	x = Math.floor( x );
-
-	// Don't: (avoid using a bitshift unless you really need to)
-	x >> 0;
-	``` 
-
-* 	Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and across browser versions.
-
-
-
----
 ## Documentation
 
 * 	__Always.__
@@ -1487,6 +1485,30 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 
 ---
+## Performance
+
+* 	Prefer simplicity and readability over performance optimization. For example,
+
+	``` javascript
+	// Do:
+	x = Math.floor( x );
+
+	// Don't: (avoid using a bitshift unless you really need to)
+	x >> 0;
+	``` 
+
+* 	Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and across browser versions.
+
+
+---
+## Modularity
+
+*	Any file (except tests) within a Node module should __never__ be longer than `200` lines of code. If a file is longer than `200` lines, the code is undoubtedly too complex, not maintainable, hard to test, and needs to be refactored into smaller sub-modules. Ideally, an individual file should __never__ be longer than `80` lines.
+*	__Always__ bear in mind the single responsibility principle.
+*	__Always__ strive for reusability. 
+
+
+---
 ## Client-side JavaScript
 
 * 	Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
@@ -1504,6 +1526,8 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	``` javascript
 	// Do:
 	(function() {
+		'use strict';
+
 		var beep = 'boop';
 		...
 	})();
@@ -1523,14 +1547,6 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	window.start = function start(){};
 	window.name = 'App';
 	```
-
----
-## Modularity
-
-*	Any file (except tests) within a Node module should __never__ be longer than `200` lines of code. If a file is longer than `200` lines, the code is undoubtedly too complex, not maintainable, hard to test, and needs to be refactored into smaller sub-modules. Ideally, an individual file should __never__ be longer than `80` lines.
-*	__Always__ bear in mind the single responsibility principle.
-*	__Always__ strive for reusability. 
-
 
 
 ---
