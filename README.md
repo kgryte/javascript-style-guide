@@ -56,198 +56,208 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 
 
-
+===
 ## Whitespace
 
-* Use tab indentation. Tab indentation allows the developer to specify the space indentation equivalent in her editor. For example, in [Sublime Text](http://www.sublimetext.com/), you can specify in your user preferences
+* 	Use [tab indentation](http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/). Tab indentation allows the developer to specify the space indentation equivalent in her editor. For example, in [Sublime Text](http://www.sublimetext.com/), you can specify in your user preferences
 
-```
-"tab_width": 4
-```
+	```
+	"tab_width": 4
+	```
 
-* Even if you must use spaces, __never__ mix tabs and spaces. This is formatting hell, as a simple find-and-replace is useless in the face of such chaos.
+	Alternatively, use an `.editorconfig` file in conjunction with IDE ([sublime](https://github.com/sindresorhus/editorconfig-sublime), [atom](https://github.com/sindresorhus/atom-editorconfig)) and/or browser ([chrome](https://chrome.google.com/webstore/detail/github-editorconfig/bppnolhdpdfmmpeefopdbpmabdpoefjh?hl=en-US)) plugins.
 
-* Include 1 space before a leading brace.
+* 	Even if you must use spaces, __never__ mix tabs and spaces. This is formatting hell, as a simple find-and-replace is useless in the face of such chaos.
 
-``` javascript
-// Do:
-function query() {
-	// Do something...
-}
+* 	__Always__ include 1 space before a leading brace.
 
-// Don't:
-function query(){
-	// Do something...
-}
-```
+	``` javascript
+	// Do:
+	function query() {
+		// Do something...
+	}
 
-* Include 1 space before and after arguments for readability.
+	// Don't:
+	function query(){
+		// Do something...
+	}
+	```
 
-``` javascript
-// Do:
-function test( arg1, arg2, arg3 ) {
-	// Do something...
-}
+* 	Do include 1 space before and after arguments for readability.
 
-// Don't:
-function test(arg1,arg2,arg3) {
-	// Do something...
-}
-```
+	``` javascript
+	// Do:
+	function test( arg1, arg2, arg3 ) {
+		// Do something...
+	}
 
-* Include 1 space before and after `array` indices (when readability is maintained).
+	// Don't:
+	function test(arg1,arg2,arg3) {
+		// Do something...
+	}
+	```
 
-``` javascript
-// Do:
-var foo = bar[ 10 ];
+* 	In general, include 1 space before and after `array` indices (when readability is maintained).
 
-// Don't:
-var foo = bar[10];
-```
+	``` javascript
+	// Do:
+	var foo = bar[ 10 ];
 
-* Use discretion when using spaces around `array` indices buried in braces.
+	// Don't:
+	var foo = bar[10];
+	```
 
-``` javascript
-var foo = myFunction( ( a === b ) ? bar[0] : bar[1] ) );
-```
+* 	Use discretion when using spaces around `array` indices buried in braces.
 
-* Include 1 space before and after operators.
+	``` javascript
+	var foo = myFunction( ( a === b ) ? bar[0] : bar[1] ) );
+	```
 
-``` javascript
-// Do:
-var a = 1 + 1;
+* 	In general, include 1 space before and after operators.
 
-// Don't:
-var a=1+1;
-```
+	``` javascript
+	// Do:
+	var a = 1 + 1;
 
-* Do __not__ include a space before or after unary operators.
+	// Don't:
+	var a=1+1;
+	```
 
-``` javascript
-// Do:
-x = ++y;
-z = z++;
+*	Use discretion when operators are contained within complex expressions and `string` concatenation.
 
-// Don't:
-x = ++ y;
-z = z ++;
-```
+	``` javascript
+	// Okay:
+	var str = 'This is a long string by '+firstName+' '+lastName+', which may keep going and going and...';
 
-* Include 1 space after comment marks.
+	// Okay:
+	var x = (x+y+z)*(t-w-v) + 5;
+	```
 
-``` javascript
-// Do:
+* 	Do __not__ include a space before or after unary operators.
 
-// This is a single-line comment.
+	``` javascript
+	// Do:
+	x = ++y;
+	z = z++;
 
-/**
-* This is a multi-
-* line comment.
-*/
+	// Don't:
+	x = ++ y;
+	z = z ++;
+	```
 
+* 	__Always__ include 1 space after comment marks.
 
-// Don't:
+	``` javascript
+	// Do:
 
-//This is a single-line comment.
+	// This is a single-line comment.
 
-/**
-*This is a mult-
-*line comment.
-*/
-```
-
-* Do __not__ include space indention in your multi-line comments.
-
-``` javascript
-// Do:
-
-/**
-* This is a multi-line comment.
-* The comment continues and continues...
-* ...until it no longer does.
-*/
+	/**
+	* This is a multi-
+	* line comment.
+	*/
 
 
-// Don't:
+	// Don't:
 
-/**
- * This is a multi-line comment.
- * The comment continues and continues...
- * ...until it no longer does.
- */
-```
+	//This is a single-line comment.
 
-* Indent when using method chaining.
+	/**
+	*This is a mult-
+	*line comment.
+	*/
+	```
 
-``` javascript
-// Do:
-var svg = d3.select( '.main' )
-	.append( 'svg:svg' )
-		.attr( 'class', 'canvas' )
-		.attr( 'data-id', Date.now() )
-		.attr( 'width', 100 )
-		.attr( 'height', 100 );
+* 	Do __not__ include space indention in your multi-line comments. Some IDEs have a tendency to auto-indent based on the previous line, thus pushing all subsequent lines 1 character to the right.
 
-// Don't:
-var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
-```
+	``` javascript
+	// Do:
 
-* In general, do __not__ introduce newlines between conditions.
-
-``` javascript
-// Do:
-if ( foo === bar ) {
-	// Do something...
-} else {
-	// Do something different...
-}
-
-// Don't:
-if ( foo === bar ) {
-	// Do something...
-}
-else {
-	// Do something different...
-}
-```
-
-* Use discretion when faced with multiple conditions.
-
-``` javascript
-
-// Do:
-if ( foo === bar ) {
-	// Do something...
-} else if ( foo === beep ) {
-	// Do something else...
-} else if ( bar === bar ) {
-	// Do something more...
-} else {
-	// Do something different...
-}
-
-// Okay:
-if ( foo === bar ) {
-	// Do something...
-}
-else if ( foo === beep ) {
-	// Do something else...
-}
-else if ( baz === bar ) {
-	// Do something more...
-}
-else {
-	// Do something different...
-}
-```
+	/**
+	* This is a multi-line comment.
+	* The comment continues and continues...
+	* ...until it no longer does.
+	*/
 
 
+	// Don't:
 
-* Indent the `case` keyword within `switch` statements.
+	/**
+	 * This is a multi-line comment.
+	 * The comment continues and continues...
+	 * ...until it no longer does.
+	 */
+	```
 
-``` javascript
-// Do:
-switch( foo ) {
+* 	Do indent when using method chaining.
+
+	``` javascript
+	// Do:
+	var svg = d3.select( '.main' )
+		.append( 'svg:svg' )
+			.attr( 'class', 'canvas' )
+			.attr( 'data-id', Date.now() )
+			.attr( 'width', 100 )
+			.attr( 'height', 100 );
+
+	// Don't:
+	var svg = d3.select( '.main' ).append( 'svg:svg' ).attr( 'class', 'canvas' ).attr( 'data-id', Date.now() ).attr( 'width', 100 ).attr( 'height', 100 );
+	```
+
+* 	In general, do __not__ introduce newlines between conditions.
+
+	``` javascript
+	// Do:
+	if ( foo === bar ) {
+		// Do something...
+	} else {
+		// Do something different...
+	}
+
+	// Don't:
+	if ( foo === bar ) {
+		// Do something...
+	}
+	else {
+		// Do something different...
+	}
+	```
+
+* 	Use discretion when faced with multiple conditions.
+
+	``` javascript
+
+	// Do:
+	if ( foo === bar ) {
+		// Do something...
+	} else if ( foo === beep ) {
+		// Do something else...
+	} else if ( bar === bar ) {
+		// Do something more...
+	} else {
+		// Do something different...
+	}
+
+	// Okay:
+	if ( foo === bar ) {
+		// Do something...
+	}
+	else if ( foo === beep ) {
+		// Do something else...
+	}
+	else if ( baz === bar ) {
+		// Do something more...
+	}
+	else {
+		// Do something different...
+	}
+	```
+
+* 	Do __not__ indent the `case` keyword within `switch` statements.
+
+	``` javascript
+	// Do:
+	switch( foo ) {
 	case 'bar':
 		// Do something...
 		break;
@@ -256,1053 +266,1102 @@ switch( foo ) {
 		break;
 	default:
 		// Do something...
-}
+	}
 
-// Don't:
-switch( foo ) {
-case 'bar':
-	// Do something...
-	break;
-case 'beep';
-	// Do something...
-	break;
-default:
-	// Do something...
-}
-```
-
-
+	// Don't:
+	switch( foo ) {
+		case 'bar':
+			// Do something...
+			break;
+		case 'beep';
+			// Do something...
+			break;
+		default:
+			// Do something...
+	}
+	```
 
 
-
+===
 ## Semicolons
 
-* Always use semicolons. Missing semicolons are a source of bugs.
+* 	Use semicolons. While semicolons are [not required](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf) in most cases due to [automatic semicolon insertion](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf), prefer to be explicit in specifying when a statement ends.
 
-``` javascript
-// Do:
-if ( foo === bar ) {
-	return true;
-}
+	``` javascript
+	// Do:
+	if ( foo === bar ) {
+		return true;
+	}
 
-// Don't:
-if ( foo === bar ) {
-	return true
-}
-```
-
-
+	// Don't:
+	if ( foo === bar ) {
+		return true
+	}
+	```
 
 
+===
 ## Parentheses
 
-* Do include parentheses to visually reinforce order of operations.
+* 	Do include parentheses to visually reinforce order of operations.
 
-``` javascript
-// Do:
-var a = ( b * c ) + 5;
+	``` javascript
+	// Do:
+	var a = ( b * c ) + 5;
 
-// Don't:
-var a = b * c + 5;
-```
+	// Don't:
+	var a = b * c + 5;
+	```
 
-* Do include parentheses around the test in ternary operators.
+* 	Do include parentheses around the test condition in ternary operators.
 
-``` javascript
-// Do:
-var foo = ( a === b ) ? a*3 : b/4;
+	``` javascript
+	// Do:
+	var foo = ( a === b ) ? a*3 : b/4;
 
-// Don't:
-var foo = a === b ? a*3 : b/4;
-```
-
-
+	// Don't:
+	var foo = a === b ? a*3 : b/4;
+	```
 
 
+===
 ## Variables
 
-* Do __not__ use leading commas when declaring multiple variables.
+* 	Do declare variables at the top of their scope. Doing so makes variable hoisting explicit.
 
-``` javascript
-// Do:
-var foo = 3,
-	bar = null,
-	beep = false,
-	boop = 'hello';
+	``` javascript
+	// Do:
+	function myFunction() {
+		var foo = 3,
+			bar;
 
-// Don't:
-var foo = 3
-  , bar = null
-  , beep = false
-  , boop = 'hello';
-```
+		if ( foo ) {
+			// Do something...
+		}
+		bar = foo * 5;
+	}
 
-* Do declare assigned variables first.
+	// Okay:
+	function myFunction() {
+		var foo = 3;
+		var bar;
 
-``` javascript
-// Do:
-var foo = 3,
-	bar = null,
-	beep,
-	boop;
+		if ( foo ) {
+			// Do something...
+		}
+		bar = foo * 5;
+	}
 
-// Don't:
-var beep, boop,
-	foo = 3,
-	bar = null;
-```
+	// Don't:
+	function myFunction() {
+		var foo = 3;
 
-* Do use a single `var` statement to declare multiple variables.
+		if ( foo ) {
+			// Do something...
+		}
+		var bar = foo * 5;
+	}
+	```
 
-``` javascript
-// Do:
-var foo = 3,
-	bar = null,
-	beep = false,
-	boop = 'hello';
 
-// Don't:
-var foo = 3;
-var bar = null;
-var beep = false;
-var boop = 'hello';
-```
+* 	Do __not__ use leading commas when declaring multiple variables.
 
-* Do declare variables at the top of their scope. Doing so makes variable hoisting explicit.
+	``` javascript
+	// Do:
+	var boop = 'hello',
+		beep = false,
+		bar = null,
+		foo = 3;
 
-``` javascript
-// Do:
-function myFunction() {
-	var foo = 3,
+	// Don't:
+	var boop = 'hello'
+	  , beep = false
+	  , bar = null
+	  , foo = 3;
+	```
+
+* 	Do declare assigned variables first.
+
+	``` javascript
+	// Do:
+	var bar = null,
+		foo = 3,
+		beep,
+		boop;
+
+	// Don't:
+	var beep, boop,
+		foo = 3,
 		bar = null;
+	```
 
-	if ( foo ) {
-		// Do something...
-	}
+* 	Prefer using a single `var` statement to declare multiple variables.
 
-	bar = foo * 5;
-}
+	``` javascript
+	// Do:
+	var boop = 'hello',
+		beep = false,
+		bar = null,
+		foo = 3;
 
-// Don't:
-function myFunction() {
+	// Okay:
+	var boop = 'hello';
+	var beep = false;
+	var bar = null;
 	var foo = 3;
+	```
 
-	if ( foo ) {
+*	In general, prefer declaring variables on separate lines.
+
+	``` javascript
+	// Do:
+	var beep,
+		boop,
+		bop,
+		bap,
+		i;
+	```
+
+*	Use discretion when declaring 2 or fewer variables.
+
+	``` javascript
+	// Okay:
+	var out, err;
+	function beep() {
 		// Do something...
 	}
+	```
 
-	var bar = foo * 5;
-}
-```
+* 	Prefer grouping related variables on the same line.
+
+	``` javascript
+	// Do:
+	var boop = 'hello',
+		out,
+		i, j, k; // => iteration vars
+	```
 
 
-
-
-
+===
 ## Strings
 
-* Use single quotes for `strings`.
+* 	__Always__ use single quotes for `strings`.
 
-``` javascript
-// Do:
-var str = 'Hello';
+	``` javascript
+	// Do:
+	var str = 'Hello';
 
-// Don't:
-var str = "Hello";
-```
-
-
+	// Don't:
+	var str = "Hello";
+	```
 
 
-
-
+===
 ## Arrays
 
-* In general, use `array` literal syntax.
+*	In general, use `array` literal syntax.
 
-``` javascript
-// Do:
-var arr = [];
+	``` javascript
+	// Do:
+	var arr = [];
 
-// Don't:
-var arr = new Array();
-```
+	// Don't:
+	var arr = new Array();
+	```
 
-* Do instantiate a new `array` when you know the `array` length and the `array` length is [less than](https://github.com/thlorenz/v8-perf/blob/master/data-types.md#fast-elements) `64K` elements.
+* 	Do instantiate a new `array` when you know the `array` length and the `array` length is [less than](https://github.com/thlorenz/v8-perf/blob/master/data-types.md#fast-elements) `64K` elements.
 
-``` javascript
-// Do:
-var arr = new Array( 100 );
+	``` javascript
+	// Do:
+	var arr = new Array( 100 );
 
-for ( var i = 0; i < arr.length; i++ ) {
-	arr[ i ] = Math.random();
-}
+	for ( var i = 0; i < arr.length; i++ ) {
+		arr[ i ] = Math.random();
+	}
 
-// Don't:
-var arr = [];
+	// Don't:
+	var arr = [];
 
-for ( var i = 0; i < 100; i++ ) {
-	arr.push( Math.random() );
-}
-```
-
-
-* To convert an array-like object to an `array`, use a `for` loop.
-
-``` javascript
-// Do:
-var nargs = arguments.length,
-	args = new Array( nargs );
-
-for ( var i = 0; i < nargs; i++ ) {
-	args[ i ] = arguments[ i ];
-}
-
-// Don't:
-var args = Array.prototype.slice.call( arguments );
-```
+	for ( var i = 0; i < 100; i++ ) {
+		arr.push( Math.random() );
+	}
+	```
 
 
+*	To convert an array-like object to an `array`, use a `for` loop.
+
+	``` javascript
+	// Do:
+	var nargs = arguments.length,
+		args = new Array( nargs );
+
+	for ( var i = 0; i < nargs; i++ ) {
+		args[ i ] = arguments[ i ];
+	}
+
+	// Don't:
+	var args = Array.prototype.slice.call( arguments );
+	```
+
+*	When copying an `array`, for small `arrays` use a `for` loop; for large `arrays`, use `Array#slice()`.
+
+	``` javascript
+	var arr,
+		out,
+		i;
+
+	// Small arrays...
+	arr = new Array( 10 );
+	out = new Array( arr.length );
+	for ( i = 0; i < arr.length; i++ ) {
+		out[ i ] = arr[ i ];
+	}
+
+	// Large arrays...
+	arr = [];
+	for ( i = 0; i < 1e6; i++ ) {
+		arr[ i ] = Math.random();
+	}
+	out = arr.slice();
+	```
 
 
+===
 ## Objects
 
-* Do split object properties over multiple lines.
+* 	Do split `object` properties over multiple lines.
 
-``` javascript
-// Do:
-var obj = {
-	'a': null,
-	'b': 5,
-	'c': function() {
-		return true;
-	},
-	'd': ( foo === bar ) ? foo : bar
-};
+	``` javascript
+	// Do:
+	var obj;
 
-// Don't:
-var obj = { 'a': null, 'b': 5, 'c': function() { return true; }, 'd': ( foo === bar ) ? foo : bar };
-```
+	obj = {
+		'a': null,
+		'b': 5,
+		'c': function() {
+			return true;
+		},
+		'd': ( foo === bar ) ? foo : bar
+	};
 
-* Do __not__ align object values.
+	// Don't:
+	var obj = { 'a': null, 'b': 5, 'c': function() { return true; }, 'd': ( foo === bar ) ? foo : bar };
+	```
 
-``` javascript
-// Do:
-var obj = {
-	'prop': true,
-	'attribute': 'foo',
-	'name': 'bar'
-};
+* 	Do __not__ align `object` values.
 
-// Don't:
-var obj = {
-	'prop'     : true,
-	'attribute': 'foo',
-	'name'     : 'bar'
-};
-```
+	``` javascript
+	// Do:
+	var obj = {
+		'prop': true,
+		'attribute': 'foo',
+		'name': 'bar'
+	};
 
-* Do __not__ include a trailing comma.
+	// Don't:
+	var obj = {
+		'prop'     : true,
+		'attribute': 'foo',
+		'name'     : 'bar'
+	};
+	```
 
-``` javascript
-// Do:
-var obj = {
-	'prop': true,
-	'attribute': 'foo',
-	'name': 'bar'
-};
+* 	Do __not__ include a trailing comma.
 
-// Don't:
-var obj = {
-	'prop': true,
-	'attribute': 'foo',
-	'name': 'bar',
-};
-```
+	``` javascript
+	// Do:
+	var obj = {
+		'prop': true,
+		'attribute': 'foo',
+		'name': 'bar'
+	};
+
+	// Don't:
+	var obj = {
+		'prop': true,
+		'attribute': 'foo',
+		'name': 'bar',
+	};
+	```
 
 
-
-
+===
 ## Functions
 
-* In general, do declare functions using [function statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function), rather than [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function). This avoids problems encountered due to [hoisting](https://github.com/buildfirst/buildfirst/tree/master/ch05/04_hoisting).
+*	In general, do declare `functions` using [function statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function), rather than [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function). This (1) avoids problems encountered due to [hoisting](https://github.com/buildfirst/buildfirst/tree/master/ch05/04_hoisting) and (2) minimizes the use of anonymous `functions`.
 
-``` javascript
-// Do:
-function beep() {
-	console.log( 'boop' );
-}
+	``` javascript
+	// Do:
+	function beep() {
+		console.log( 'boop' );
+	}
 
-// Don't:
-var beep = function() {
-	console.log( 'boop' );
-}
-```
+	// Don't:
+	var beep = function() {
+		console.log( 'boop' );
+	}
+	```
 
-* Do minimize closures and declare functions at the highest possible scope.
+*	Do minimize closures and declare `functions` at the highest possible scope.
 
-``` javascript
-// Do:
-function beep() {
-	boop();
-}
+	``` javascript
+	// Do:
+	function beep() {
+		boop();
+	}
 
-function boop() {
-	// Do something...
-}
-
-// Don't:
-function beep() {
-	boop();
 	function boop() {
 		// Do something...
 	}
-}
-```
 
-* Do __not__ declare functions inside `for` loops and `conditions`.
+	// Don't:
+	function beep() {
+		boop();
+		function boop() {
+			// Do something...
+		}
+	}
+	```
 
-``` javascript
-// Do:
-function beep( idx, clbk ) {
-	clbk( 'beep'+i );
-}
-function bop( msg ) {
-	console.log( msg );
-}
+* 	Do __not__ declare `functions` inside `for` loops and `conditions`.
 
-for ( var i = 0; i < 10; i++ ) {
-	beep( i, bop );
-}
-
-// Don't:
-for ( var i = 0; i < 10; i++ ) {
-	beep( i, function bop( msg ) {
+	``` javascript
+	// Do:
+	function beep( idx, clbk ) {
+		clbk( 'beep'+i );
+	}
+	function bop( msg ) {
 		console.log( msg );
-	});
-}
+	}
 
-// Do:
-function onTimeout( idx ) {
-	return function onTimeout() {
-		console.log( idx );
-	};
-}
-for ( var i = 0; i < 10; i++ ) {
-	setTimeout( onTimeout( i ), 1000 );
-}
+	for ( var i = 0; i < 10; i++ ) {
+		beep( i, bop );
+	}
 
-// Don't:
-for ( var i = 0; i < 10; i++ ) {
-	setTimeout( function onTimeout() {
-		console.log( i );
-	}, 1000 );
-}
+	// Don't:
+	for ( var i = 0; i < 10; i++ ) {
+		beep( i, function bop( msg ) {
+			console.log( msg );
+		});
+	}
 
-// Do:
-function bap() {
-	// Do something...
-}
-if ( i < 11 ) {
-	bap();
-}
+	// Do:
+	function onTimeout( idx ) {
+		return function onTimeout() {
+			console.log( idx );
+		};
+	}
+	for ( var i = 0; i < 10; i++ ) {
+		setTimeout( onTimeout( i ), 1000 );
+	}
 
-// Don't:
-if ( i < 11 ) {
-	bap();
+	// Don't:
+	for ( var i = 0; i < 10; i++ ) {
+		setTimeout( function onTimeout() {
+			console.log( i );
+		}, 1000 );
+	}
+
+	// Do:
 	function bap() {
 		// Do something...
 	}
-}
-```
-
-
-
-* Do place parentheses around immediately invoked function expressions (IIFE). Make a clear distinction between a function declaration and one that is immediately invoked.
-
-``` javascript
-// Do:
-(function init() {
-	// Do something...
-})();
-
-// Don't:
-function init() {
-	// Do something...
-}();
-```
-
-* Do place enclosed functions below the `return` statement.
-
-``` javascript
-// Do:
-function getEquation( a, b, c ) {
-	var d;
-
-	a = 3 * a;
-	b = a / 5;
-	c = Math.pow( b, 3 );
-
-	d = a + ( b / c );
-
-	return eqn;
-
-	/**
-	* FUNCTION: eqn( e )
-	*	Computes a complex equation.
-	*
-	* @param {Number} e - dynamic value
-	* @returns {Number} equation output
-	*/
-	function eqn( e ) {
-		return e - d + ( 15 * a ) + ( Math.pow( b, 1 / c ) );
+	if ( i < 11 ) {
+		bap();
 	}
-} // end FUNCTION getEquation()
-```
 
-* Prefer primitive expressions over their functional counterparts. Unnecessary function calls introduce additional overhead.
-
-``` javascript
-var squared = new Array( arr.length );
-
-// Do:
-for ( var i = 0; i < arr.length; i++ ) {
-	squared[ i ] = arr[ i ] * arr[ i ];
-}
-
-// Don't:
-squared = arr.map( function( value ) {
-	return value * value;
-});
-```
-
-* Asynchronous callbacks requiring error handling should have an `error` parameter as their first argument. If no errors, `error` should be set to `null`.
-
-``` javascript
-// Do:
-function clbk( error, value ) {
-	if ( error ) {
-		return;
+	// Don't:
+	if ( i < 11 ) {
+		bap();
+		function bap() {
+			// Do something...
+		}
 	}
-	console.log( value );
-}
+	```
 
-request({
-	'method': 'GET',
-	'uri': 'http://127.0.0.1'
-}, function onResponse( error, response, body ) {
-	if ( error ) {
-		clbk( error );
-		return;
+
+*	Do place parentheses around immediately invoked function expressions (IIFE). Make a clear distinction between a `function` declaration and one that is immediately invoked.
+
+	``` javascript
+	// Do:
+	(function init() {
+		// Do something...
+	})();
+
+	// Don't:
+	function init() {
+		// Do something...
+	}();
+	```
+
+*	Do place enclosed `functions` below the `return` statement.
+
+	``` javascript
+	// Do:
+	function getEquation( a, b, c ) {
+		var d;
+
+		a = 3 * a;
+		b = a / 5;
+		c = Math.pow( b, 3 );
+
+		d = a + ( b / c );
+
+		return eqn;
+
+		/**
+		* FUNCTION: eqn( e )
+		*	Computes a complex equation.
+		*
+		* @param {Number} e - dynamic value
+		* @returns {Number} equation output
+		*/
+		function eqn( e ) {
+			return e - d + ( 15 * a ) + ( Math.pow( b, 1 / c ) );
+		}
+	} // end FUNCTION getEquation()
+	```
+
+*	Prefer primitive expressions over their functional counterparts. Unnecessary `function` calls introduce additional overhead.
+
+	``` javascript
+	var squared = new Array( arr.length );
+
+	// Do:
+	for ( var i = 0; i < arr.length; i++ ) {
+		squared[ i ] = arr[ i ] * arr[ i ];
 	}
-	clbk( null, body );
-});
-```
+
+	// Don't:
+	squared = arr.map( function( value ) {
+		return value * value;
+	});
+	```
+
+* 	Asynchronous callbacks requiring error handling should have an `error` parameter as their first argument. If no errors, `error` should be set to `null`.
+
+	``` javascript
+	// Do:
+	function clbk( error, value ) {
+		if ( error ) {
+			return;
+		}
+		console.log( value );
+	}
+
+	function onResponse( error, response, body ) {
+		if ( error ) {
+			clbk( error );
+			return;
+		}
+		clbk( null, body );
+	}
+
+	request({
+		'method': 'GET',
+		'uri': 'http://127.0.0.1'
+	}, onResponse );
+	```
 
 
+===
 ## Regular Expressions
 
-* Do assign regular expressions to variables rather than using them inline.
+*	Do assign regular expressions to variables rather than using them inline.
 
-``` javascript
-// Do:
-var regex = /\.+/;
+	``` javascript
+	// Do:
+	var regex = /\.+/;
 
-beep();
+	beep();
 
-function beep( str ) {
-	if ( regex.test( str ) ) {
-		// Do something...
+	function beep( str ) {
+		if ( regex.test( str ) ) {
+			// Do something...
+		}
 	}
-}
 
-// Don't:
-beep();
+	// Don't:
+	beep();
 
-function beep( str ) {
-	if ( /\.+/.test( str ) ) {
-		// Do something...
+	function beep( str ) {
+		if ( /\.+/.test( str ) ) {
+			// Do something...
+		}
 	}
-}
-```
+	```
 
-
-
+===
 ## Blocks
 
-* Always use curly braces. Not using them is a common source of bugs.
+* 	__Always__ use curly braces. Not using them is a common source of bugs.
 
-``` javascript
-// Do:
-if ( foo === bar ) {
-	return true;
-}
-
-// Don't:
-if ( foo === bar ) return true;
-```
-
-* Always place the leading brace on the same line.
-
-``` javascript
-// Do:
-if ( foo === bar ) {
-	// Do something...
-}
-
-function query() {
-	// Do something...
-}
-
-// Don't:
-if ( foo === bar )
-{
-	// Do something...
-}
-
-function query()
-{
-	// Do something...
-}
-```
-
-
-* Do early `return`.
-
-``` javascript
-// Do:
-function foo( value ) {
-	if ( value === 'bar' ) {
-		return 'Hello';
+	``` javascript
+	// Do:
+	if ( foo === bar ) {
+		return true;
 	}
-	return 'Goodbye';
-}
 
-// Don't:
-function foo( value ) {
-	var str;
-	if ( value === 'bar' ) {
-		str = 'Hello';
-	} else {
-		str = 'Goodbye';
-	}
-	return str;
-}
-```
+	// Don't:
+	if ( foo === bar ) return true;
+	```
 
-* Do early `continue`.
+* 	__Always__ place the leading brace on the same line.
 
-``` javascript
-// Do:
-for ( var i = 0; i < 10; i++ ) {
-	if ( i === 5 ) {
-		continue;
-	}
-	// Do something...
-}
-
-// Don't:
-for ( var i = 0; i < 10; i++ ) {
-	if ( i !== 5 ) {
+	``` javascript
+	// Do:
+	if ( foo === bar ) {
 		// Do something...
 	}
-}
-```
 
+	function query() {
+		// Do something...
+	}
 
+	// Don't:
+	if ( foo === bar )
+	{
+		// Do something...
+	}
 
+	function query()
+	{
+		// Do something...
+	}
+	```
 
+* 	Do early `return`.
+
+	``` javascript
+	// Do:
+	function foo( value ) {
+		if ( value === 'bar' ) {
+			return 'Hello';
+		}
+		return 'Goodbye';
+	}
+
+	// Don't:
+	function foo( value ) {
+		var str;
+		if ( value === 'bar' ) {
+			str = 'Hello';
+		} else {
+			str = 'Goodbye';
+		}
+		return str;
+	}
+	```
+
+* 	Do early `continue`.
+
+	``` javascript
+	// Do:
+	for ( var i = 0; i < 10; i++ ) {
+		if ( i === 5 ) {
+			continue;
+		}
+		// Do something...
+	}
+
+	// Don't:
+	for ( var i = 0; i < 10; i++ ) {
+		if ( i !== 5 ) {
+			// Do something...
+		}
+	}
+	```
+
+===
 ## Equality
 
-* Always prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
+* 	__Always__ prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
 
-``` javascript
-// Do:
-if ( foo === bar ) {
-	// Do something...
-}
+	``` javascript
+	// Do:
+	if ( foo === bar ) {
+		// Do something...
+	}
 
-// Don't:
-if ( foo != bar ) {
-	// Do something...
-}
-```
-
-
+	// Don't:
+	if ( foo != bar ) {
+		// Do something...
+	}
+	```
 
 
-
-
-
+===
 ## Comments
 
-* Use `/** Comments */` for mult-line comments.
+*	Do use `/** Comments */` for mult-line comments.
 
-``` javascript
-// Do:
+	``` javascript
+	// Do:
 
-/**
-* FUNCTION: beep()
-*	Beep to go boop.
-*/
-function beep() {
-	// Do something...
-}
+	/**
+	* FUNCTION: beep()
+	*	Beep to go boop.
+	*/
+	function beep() {
+		// Do something...
+	}
 
-// Don't:
+	// Don't:
 
-// FUNCTION: beep()
-//	Beep to go boop.
-function beep() {
-	// Do something...
-}
-```
+	// FUNCTION: beep()
+	//	Beep to go boop.
+	function beep() {
+		// Do something...
+	}
+	```
 
-* Do use [JSDoc](http://usejsdoc.org/#Getting_Started) and do so for every function. Be sure to include descriptions, parameters, and other information.
+*	Do use [JSDoc](http://usejsdoc.org/#Getting_Started) and do so for every `function`. Be sure to include descriptions, parameters, and other information.
 
-``` javascript
-// Do:
+	``` javascript
+	// Do:
 
-/**
-* FUNCTION: transform( str )
-*	String transformer.
-*
-* @param {String} str - string to be transformed.
-* @returns {String} transformed string
-*/
-function transform( str ) {
-	return str + ' has been transformed.';
-}
+	/**
+	* FUNCTION: transform( str )
+	*	String transformer.
+	*
+	* @param {String} str - string to be transformed.
+	* @returns {String} transformed string
+	*/
+	function transform( str ) {
+		return str + ' has been transformed.';
+	}
 
-// Don't:
-function transform( str ) {
-	return str + ' has been transformed.';
-}
-```
+	// Don't:
+	function transform( str ) {
+		return str + ' has been transformed.';
+	}
+	```
 
-* Use `//` for single-line comments. Place the comment above the comment subject, and place an empty line above the comment.
+* 	Do use `//` for single-line comments. Place the comment above the comment subject, and place an empty line above the comment.
 
-``` javascript
-// Do:
+	``` javascript
+	// Do:
 
-// Set the default value to null.
-var foo = bar || null;
-
-
-// Don't:
-var foo = bar || null; // set the default value to null.
-```
-
-* Use `// FIXME:` to annotate problems.
-
-``` javascript
-// FIXME: misses the case where value is 0. Want to check if value is not numeric.
-if ( !value ) {
-	return false;
-}
-```
-
-* Use `// TODO:` to annotate tasks.
-
-``` javascript
-function Ctor() {
-
-	// TODO: make `name` property value publicly accessible.
-	this.name = 'foobar';
-
-	return this;
-}
-```
-
-* Use `// HACK:` to annotate fragile/non-general solutions.
-
-``` javascript
-// HACK: temporary fix; host and port should be abstracted to another module.
-var host = '127.0.0.1',
-	port = 7331;
-```
-
-* Use `// WARNING:` to annotate possible gotchas/pitfalls.
-
-``` javascript
-// WARNING: shared reference of a mutable object; possible side effects.
-var a = b = {};
-```
-
-* Use `// NOTE:` to annotate questions, comments, or anything which does not fit under `TODO`/`FIXME`/`HACK`/`WARNING` which should be brought to a user's attention.
-
-``` javascript
-// NOTE: consider optimizing this for large arrays (len > 64K).
-var arr = new Array( len );
-for ( var i = 0; i < len; i++ ) {
-	arr[ i ] = Math.random();
-}
-```
+	// Set the default value to null.
+	var foo = bar || null;
 
 
-* Do comment closing braces. Doing so helps lessen bracket hell when dealing with long code blocks.
+	// Don't:
+	var foo = bar || null; // set the default value to null.
+	```
 
-``` javascript
-function longFunction() {
-	
-	// [0] Do first thing.
-	firstThing();
+* 	Use `// FIXME:` to annotate problems.
 
-	// [1] Do second thing.
-	secondThing();
+	``` javascript
+	// FIXME: misses the case where value is 0. Want to check if value is not numeric.
+	if ( !value ) {
+		return false;
+	}
+	```
 
-	// [2] Do third thing.
-	thirdThing();
+* 	Use `// TODO:` to annotate tasks.
 
-	// ...
+	``` javascript
+	function Ctor() {
 
-	// [N-1] Do Nth thing.
-	nthThing(); 
+		// TODO: make `name` property value publicly accessible.
+		this.name = 'foobar';
 
-	return true;
-} // end FUNCTION longFunction()
-```
+		return this;
+	}
+	```
+
+* 	Use `// HACK:` to annotate fragile/non-general solutions.
+
+	``` javascript
+	// HACK: temporary fix; host and port should be abstracted to another module.
+	var host = '127.0.0.1',
+		port = 7331;
+	```
+
+* 	Use `// WARNING:` to annotate possible gotchas/pitfalls.
+
+	``` javascript
+	// WARNING: shared reference of a mutable object; possible side effects.
+	var a = b = {};
+	```
+
+* 	Use `// NOTE:` to annotate questions, comments, or anything which does not fit under `TODO`/`FIXME`/`HACK`/`WARNING` which should be brought to a user's attention.
+
+	``` javascript
+	// NOTE: consider optimizing this for large arrays (len > 64K).
+	var arr = new Array( len );
+	for ( var i = 0; i < len; i++ ) {
+		arr[ i ] = Math.random();
+	}
+	```
 
 
+* 	Consider commenting closing braces. Doing so helps lessen bracket hell when dealing with long code blocks.
+
+	``` javascript
+	function longFunction() {
+		
+		// [0] Do first thing.
+		firstThing();
+
+		// [1] Do second thing.
+		secondThing();
+
+		// [2] Do third thing.
+		thirdThing();
+
+		// ...
+
+		// [N-1] Do Nth thing.
+		nthThing(); 
+
+		return true;
+	} // end FUNCTION longFunction()
+	```
 
 
-
-
-
+===
 ## Naming
 
-* Use camelCase for functions, objects, instances, and variables.
+*	__Always__ use camelCase for `functions`, `objects`, instances, and variables.
 
-``` javascript
-// Do:
-function testFunction() {
-	// Do something...
-}
+	``` javascript
+	// Do:
+	function testFunction() {
+		// Do something...
+	}
 
-var myObject = {};
+	var myObject = {};
 
-var myInstance = new Instance();
-
-
-// Don't:
-function testfunction() {
-	// Do something...
-}
-
-var MyObject = {};
-
-var reallylongvariablename = 0;
-```
-
-* Use PascalCase for constructors.
-
-``` javascript
-// Do:
-function RoboRobot() {
-	this.name = 'Beep';
-	return this;
-}
-
-var robo = new RoboRobot();
+	var myInstance = new Instance();
 
 
-// Don't:
-function roboRobot() {
-	this.name = 'Boop';
-	return this;
-}
+	// Don't:
+	function testfunction() {
+		// Do something...
+	}
 
-var robo = new roboRobot();
-```
+	var MyObject = {};
 
-* Use a leading underscore when naming private properties.
+	var reallylongvariablename = 0;
+	```
 
-``` javascript
-// Do:
-function Robot() {
-	this._private = true;
-	return this;
-}
+*	__Always__ use PascalCase for constructors.
 
-// Don't:
-function Robot() {
-	this.__private__ = true;
-	this.private_ = true;
-	return this;
-}
-```
+	``` javascript
+	// Do:
+	function RoboRobot() {
+		this.name = 'Beep';
+		return this;
+	}
 
-* Name all functions. Useful in stack traces.
-
-``` javascript
-// Do:
-request({
-	'method': 'GET',
-	'uri': 'http://127.0.0.1'
-}, function onResponse( error, response, body ) {
-	// Do something...
-});
-
-// Don't:
-request({
-	'method': 'GET',
-	'uri': 'http://127.0.0.1'
-}, function( error, response, body ) {
-	// Do something...
-});
-```
-
-* Do name constants in all CAPS.
-
-``` javascript
-// Do:
-var VALUE = 3.14;
-
-// Don't:
-var value = 3.14;
-```
+	var robo = new RoboRobot();
 
 
+	// Don't:
+	function roboRobot() {
+		this.name = 'Boop';
+		return this;
+	}
+
+	var robo = new roboRobot();
+	```
+
+* 	__Always__ use a leading underscore when naming private properties.
+
+	``` javascript
+	// Do:
+	function Robot() {
+		this._private = true;
+		return this;
+	}
+
+	// Don't:
+	function Robot() {
+		this.__private__ = true;
+		this.private_ = true;
+		return this;
+	}
+	```
+
+* 	__Always__ name all `functions`. Named `functions` are easier to find in stack traces and consequently debug.
+
+	``` javascript
+	// Do:
+	function onResponse( error, response, body ) {
+		// Do something...
+	}
+
+	request({
+		'method': 'GET',
+		'uri': 'http://127.0.0.1'
+	}, onResponse );
+
+	// Don't:
+	request({
+		'method': 'GET',
+		'uri': 'http://127.0.0.1'
+	}, function( error, response, body ) {
+		// Do something...
+	});
+	```
+
+*	Do name constants in all CAPS.
+
+	``` javascript
+	// Do:
+	var VALUE = 3.14;
+
+	// Don't:
+	var value = 3.14;
+	```
 
 
+===
 ## This
 
-* When caching a reference to `this`, use `self`.
+*	When caching a reference to `this`, use `self`.
 
-``` javascript
-// Do:
-function Robot() {
-	var self = this;
+	``` javascript
+	// Do:
+	function Robot() {
+		var self = this;
 
-	this.name = 'Beep';
-	
-	return function Robo() {
-		return self;
+		this.name = 'Beep';
+		
+		return function Robo() {
+			return self;
+		}
 	}
-}
-```
+	```
 
-* Avoid using `bind` (performance).
+*	Avoid using `bind` (performance).
 
-``` javascript
-// Don't:
-function robo() {
-	return this;
-}
+	``` javascript
+	// Do:
+	function createRobo( ctx ) {
+		return robo() {
+			return ctx;
+		};
+	}
 
-function Robot() {
-	this.name = 'Beep';
-	robo.bind( this );
-	return robo;
-}
-```
+	function Robot() {
+		this.name = 'Beep';
+		return createRobo( this );
+	}
+
+	// Don't:
+	function robo() {
+		return this;
+	}
+
+	function Robot() {
+		var fcn;
+		this.name = 'Beep';
+		fcn = robo.bind( this );
+		return fcn;
+	}
+	```
 
 
-
-
-
-
+===
 ## Setters and Getters
 
-* Where appropriate, combine set/get into a single method.
+*	Where appropriate, combine set/get into a single method.
 
-``` javascript
-// Do:
-Robot.prototype.name = function( name ) {
-	if ( !arguments.length ) {
+	``` javascript
+	// Do:
+	Robot.prototype.name = function( name ) {
+		if ( !arguments.length ) {
+			return this._name;
+		}
+		if ( typeof name !== 'string' ) {
+			throw new Error( 'name()::invalid input value.' );
+		}
+		this._name = name;
+		return this;
+	}
+
+	// Don't:
+	Robot.prototype.setName = function( name ) {
+		if ( typeof name !== 'string' ) {
+			throw new Error( 'name()::invalid input value.' );
+		}
+		this._name = name;
+		return this;
+	}
+
+	Robot.prototype.getName = function() {
 		return this._name;
 	}
-	if ( typeof name !== 'string' ) {
-		throw new Error( 'name()::invalid input value.' );
+	```
+
+*	For public libraries, do [type](https://github.com/validate-io) and [sanity](https://github.com/validate-io) check input arguments. While checks do incur computational cost, not providing such checks can entail a considerable drain on a developer's time. Subtle bugs can arise from using unexpected types. Be explicit in what you expect and write tests confirming your expectations. Your stringency helps other developers debug their own code.
+
+	``` javascript
+	// Do:
+	Stream.prototype.window = function( win ) {
+		if ( !arguments.length ) {
+			return this._window;
+		}
+		if ( typeof win !== 'number' ||  win !== win ) {
+			throw new Error( 'window()::invalid input argument. Window size must be numeric.' );
+		}
+		if ( Math.floor( win ) !== win || win <= 0 ) {
+			throw new Error( 'window()::invalid input argument. Window size must be a positive integer' );
+		}
+		this._window = win;
+		return this;
 	}
-	this._name = name;
-	return this;
-}
 
-// Don't:
-Robot.prototype.setName = function( name ) {
-	if ( typeof name !== 'string' ) {
-		throw new Error( 'name()::invalid input value.' );
+	// Don't:
+	Stream.prototype.window = function( win ) {
+		if ( !arguments.length ) {
+			return this._window;
+		}
+		this._window = win;
 	}
-	this._name = name;
-	return this;
-}
+	```
 
-Robot.prototype.getName = function() {
-	return this._name;
-}
-```
-
-* For public libraries, do type and sanity check input arguments. While checks do incur computational cost, not providing such checks can entail a considerable drain on a developer's time. Subtle bugs can arise from using unexpected types. Be explicit in what you expect and write tests confirming your expectations. Your stringency helps other developers debug their own code.
-
-``` javascript
-// Do:
-Stream.prototype.window = function( win ) {
-	if ( !arguments.length ) {
-		return this._window;
-	}
-	if ( typeof win !== 'number' ||  win !== win ) {
-		throw new Error( 'window()::invalid input argument. Window size must be numeric.' );
-	}
-	if ( Math.floor( win ) !== win || win <= 0 ) {
-		throw new Error( 'window()::invalid input argument. Window size must be a positive integer' );
-	}
-	this._window = win;
-	return this;
-}
-
-// Don't:
-Stream.prototype.window = function( win ) {
-	if ( !arguments.length ) {
-		return this._window;
-	}
-	this._window = win;
-}
-```
-
-
-
-
+===
 ## Method Chaining
 
-* Return `this` to enable method chaining and to create a [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface).
+*	Return `this` to enable method chaining and to create a [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface).
 
-``` javascript
-function Robot() {
-	this._name = '';
-	this._color = 'black';
-	return this;
-}
-
-Robot.prototype.name = function( name ) {
-	if ( !arguments.length ) {
-		return this._name;
+	``` javascript
+	function Robot() {
+		this._name = '';
+		this._color = 'black';
+		return this;
 	}
-	if ( typeof name !== 'string' ) {
-		throw new Error( 'name()::invalid input value.' );
+
+	Robot.prototype.name = function( name ) {
+		if ( !arguments.length ) {
+			return this._name;
+		}
+		if ( typeof name !== 'string' ) {
+			throw new Error( 'name()::invalid input value.' );
+		}
+		this._name = name;
+		return this;
 	}
-	this._name = name;
-	return this;
-}
 
-Robot.prototype.color = function( color ) {
-	if ( !arguments.length ) {
-		return this._color;
+	Robot.prototype.color = function( color ) {
+		if ( !arguments.length ) {
+			return this._color;
+		}
+		if ( typeof color !== 'string' ) {
+			throw new Error( 'color()::invalid input value.' );
+		}
+		this._color = color;
+		return this;
 	}
-	if ( typeof color !== 'string' ) {
-		throw new Error( 'color()::invalid input value.' );
-	}
-	this._color = color;
-	return this;
-}
 
-var robo = new Robot();
+	var robo = new Robot();
 
-robo.name( 'Robo' )
-	.color( 'pink' );
-```
+	robo.name( 'Robo' )
+		.color( 'pink' );
+	```
 
 
-
-
-
+===
 ## Native JavaScript
 
 * Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
 
-``` javascript
-// Do:
-var el = document.querySelector( '#main' );
+	``` javascript
+	// Do:
+	var el = document.querySelector( '#main' );
 
-// Don't:
-var el = $( '#main' );
-```
+	// Don't:
+	var el = $( '#main' );
+	```
 
 
+===
 ## Strict Mode
 
-* Always write JavaScript in `strict` [mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). Doing so discourages bad practices, avoids silent errors, and can result in better performance, as the compiler can make certain assumptions about the code.
+*	__Always__ write JavaScript in `strict` [mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). Doing so discourages bad practices, avoids silent errors, and can result in better performance, as the compiler can make certain assumptions about the code.
 
 
+===
 ## Performance
 
-* Prefer simplicity and readability over performance optimization. For example,
+* 	Prefer simplicity and readability over performance optimization. For example,
 
-``` javascript
-// Do:
-x = Math.floor( x );
+	``` javascript
+	// Do:
+	x = Math.floor( x );
 
-// Don't: (avoid using a bitshift unless you really need to)
-x >> 0;
-``` 
+	// Don't: (avoid using a bitshift unless you really need to)
+	x >> 0;
+	``` 
 
-* Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and across browser versions.
-
-
+* 	Take JSPerf tests with a grain of salt, as results can vary significantly from browser to browser and across browser versions.
 
 
+
+===
 ## Documentation
 
-* __Always.__
+* 	__Always.__
 
-* Prefer too much to too little.
+* 	Prefer too much to too little.
 
-``` javascript
-// Do:
+	``` javascript
+	// Do:
 
-/**
-* FUNCTION: autocorr( vector )
-*	Given an input data vector, calculate its auto-correlation. To calculate the auto-correlation using an FFT, the data is padded to have length 2^n, where `n` is the next power of 2 greater than the vector length. For more details, consult {@link http://example.com}.
-*
-* @param {Array} vector - 1d array
-* @returns {Number} auto-correlation
-*/
-function autocorr( vector ) {
-	// Calculate...
-}
-
-
-// Don't:
-/**
-* FUNCTION: autocorr( vector )
-*	Calculates auto-correlation.
-*/
-function autocorr( vector ) {
-	// Calculate...
-}
-```
-
-* For client-side JavaScript, if you are concerned about file size, build/include a distributable file, stripped of comments and minified. Keep your source annotated.
-
-* Strive to always include example/demo code that is easily runnable.
-
-* Do __not__ claim that your code is self-documenting. Your code is not. __Period.__
-
-* Do not rely on tests as your sole source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
-
-* Make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
+	/**
+	* FUNCTION: autocorr( vector )
+	*	Given an input data vector, calculate its auto-correlation. To calculate the auto-correlation using an FFT, the data is padded to have length 2^n, where `n` is the next power of 2 greater than the vector length. For more details, consult {@link http://example.com}.
+	*
+	* @param {Array} vector - 1d array
+	* @returns {Number} auto-correlation
+	*/
+	function autocorr( vector ) {
+		// Calculate...
+	}
 
 
+	// Don't:
+	/**
+	* FUNCTION: autocorr( vector )
+	*	Calculates auto-correlation.
+	*/
+	function autocorr( vector ) {
+		// Calculate...
+	}
+	```
+
+*	For client-side JavaScript, if you are concerned about file size, build/include a distributable file, stripped of comments and minified. Keep your source annotated.
+
+* 	Strive to always include example/demo code that is easily runnable.
+
+* 	Do __not__ claim that your code is self-documenting. Your code is not. __Period.__
+
+* 	Do not rely on tests as your sole source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
+
+* 	__Always__ make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
 
 
-
+===
 ## Versioning
 
-* Use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
+* 	Use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
 
-``` javascript
-// Do:
-{
-	"version": "1.23.5"
-}
+	``` javascript
+	// Do:
+	{
+		"version": "1.23.5"
+	}
 
-// Don't:
-// filename: script_hmm_takes_thingy_and_makes_another_thingy_2000-01-01_version12_updated.js
-```
-
-
+	// Don't:
+	// filename: script_hmm_takes_thingy_and_makes_another_thingy_2000-01-01_version12_updated.js
+	```
 
 
+===
 ## Additional Resources
 
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
@@ -1313,11 +1372,9 @@ function autocorr( vector ) {
 * [Semantic Versioning](https://github.com/mojombo/semver/blob/master/semver.md)
 
 
-
 ## Author
 
 Athan Reines [(@kgryte)](http://twitter.com/kgryte). 2014-2015.
-
 
 
 ## License
