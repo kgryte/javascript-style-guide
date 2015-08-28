@@ -1,7 +1,6 @@
 JavaScript Style Guide
 ======================
-
-_An opinionated style guide for writing JavaScript._
+> _An opinionated style guide for writing JavaScript._
 
 
 ## Table of Contents
@@ -15,6 +14,7 @@ _An opinionated style guide for writing JavaScript._
 1. 	[Strings](#strings)
 1. 	[Arrays](#arrays)
 1. 	[Functions](#functions)
+1. 	[Arguments](#arguments)
 1. 	[Regular Expressions](#regular-expressions)
 1. 	[Blocks](#blocks)
 1. 	[Equality](#equality)
@@ -23,7 +23,7 @@ _An opinionated style guide for writing JavaScript._
 1. 	[This](#this)
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
-1. 	[Native JavaScript](#native-javascript)
+1. 	[Client-side JavaScript](#client-side-javascript)
 1. 	[Strict Mode](#strict-mode)
 1. 	[Performance](#performance)
 1. 	[Documentation](#documentation)
@@ -485,7 +485,6 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}
 	```
 
-
 *	To convert an array-like object to an `array`, use a `for` loop.
 
 	``` javascript
@@ -760,6 +759,66 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 		'uri': 'http://127.0.0.1'
 	}, onResponse );
 	```
+
+---
+## Arguments
+
+*	__Never__ pass the `arguments` variable to another `function`, including copy the value to an `array`. Doing so automatically puts the `function` in deoptimization hell.
+
+	``` javascript
+	// Do:
+	function fcn() {
+		var nargs = arguments.length,
+			args = new Array( nargs ),
+			out,
+			i;
+
+		for ( i = 0; i < nargs; i++ ) {
+			args[ i ] = arguments[ i ];
+		}
+		out = foo( args );
+	}
+
+	// Don't:
+	function fcn() {
+		var out = foo( arguments );
+	}
+	```
+
+*	__Always__ reassign input arguments to new variables when mentioning `arguments` in a `function` body. Recycling variables when mentioning `arguments` in a `function` body prevents compiler optimization.
+
+	``` javascript
+	// Do:
+	function fcn( value, options ) {
+		var opts,
+			err;
+
+		if ( arguments.length < 2 ) {
+			opts = value;
+		} else {
+			opts = options;
+		}
+		err = validate( opts );
+		if ( err ) {
+			throw err
+		}
+		...
+	}
+
+	// Don't:
+	function fcn( value, options ) {
+		var err;
+		if ( arguments.length < 2 ) {
+			options = value;
+		}
+		err = validate( options );
+		if ( err ) {
+			throw err
+		}
+		...
+	}
+	```
+
 
 
 ---
@@ -1292,9 +1351,9 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 
 ---
-## Native JavaScript
+## Client-side JavaScript
 
-* Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
+* 	Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
 
 	``` javascript
 	// Do:
@@ -1302,6 +1361,31 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 	// Don't:
 	var el = $( '#main' );
+	```
+
+*	__Always__ wrap client-side scripts in immediately invoked function expressions (IIFE). Doing so prevents variable leakage.
+
+	``` javascript
+	// Do:
+	(function() {
+		var beep = 'boop';
+		...
+	})();
+	```
+
+*	__Always__ namespace client-side global variables. Doing so helps minimize global variable name collisions.
+
+	``` javascript
+	// Do:
+	var myApp = {};
+	myApp.name = 'App';
+	myApp.start = function start(){};
+
+	window.myApp = myApp;
+
+	// Don't:
+	window.start = function start(){};
+	window.name = 'App';
 	```
 
 
@@ -1369,7 +1453,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 ---
 ## Versioning
 
-* 	Use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
+* 	When creating modules, __always__ use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
 
 	``` javascript
 	// Do:
