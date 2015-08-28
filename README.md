@@ -21,6 +21,7 @@ JavaScript Style Guide
 1. 	[Comments](#comments)
 1. 	[Naming](#naming)
 1. 	[This](#this)
+1.  [Classes](#classes)
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
 1. 	[Client-side JavaScript](#client-side-javascript)
@@ -760,6 +761,46 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}, onResponse );
 	```
 
+*	Prefer closures and `function` factories rather than nested `functions` and callbacks.
+
+	``` javascript
+	// Do:
+	function mult( x, y ) {
+		return x * y;
+	}
+	function cube( value ) {
+		var v;
+		v = mult( value, value );
+		v = mult( v, value );
+		return v;
+	}
+	function compute( value ) {
+		return function compute() {
+			return cube( value );
+		};
+	}
+	function deferredComputation( value ) {
+		return compute( value );
+	}
+
+	// Don't:
+	function deferredComputation( value ) {
+		return compute;
+		function compute() {
+			return cube();
+			function cube() {
+				var v;
+				v = mult( value, value );
+				v = mult( v, value );
+				return v;
+				function mult( x, y ) {
+					return x * y;
+				}
+			}
+		}
+	}
+	```
+
 ---
 ## Arguments
 
@@ -1210,13 +1251,18 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 	``` javascript
 	// Do:
-	function Robot() {
+	function Robot( name ) {
 		var self = this;
+		if ( !(this instanceof Robot) ) {
+			return new Robot( name );
+		}
+		this.name = name;
+		this.greet = greet;
 
-		this.name = 'Beep';
-		
-		return function Robo() {
-			return self;
+		return this;
+
+		function greet() {
+			return 'Hello! My name is ' + self.name + '.';
 		}
 	}
 	```
@@ -1225,30 +1271,56 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 	``` javascript
 	// Do:
-	function createRobo( ctx ) {
-		return robo() {
-			return ctx;
+	function greet( ctx ) {
+		return function greet() {
+			return 'Hello! My name is ' + ctx.name + '.';
 		};
 	}
 
 	function Robot() {
+		if ( !(this instanceof Robot) ) {
+			return new Robot();
+		}
 		this.name = 'Beep';
-		return createRobo( this );
+		this.greet = greet( this );
+		return this;
 	}
 
 	// Don't:
-	function robo() {
-		return this;
+	function greet() {
+		return this.name;
 	}
 
 	function Robot() {
 		var fcn;
+		if ( !(this instanceof Robot) ) {
+			return new Robot();
+		}
 		this.name = 'Beep';
-		fcn = robo.bind( this );
-		return fcn;
+		this.greet = greet.bind( this );
+		return this;
 	}
 	```
 
+---
+## Classes
+
+*	__Always__ allow for classes to be instantiated without the `new` operator.
+
+	``` javascript
+	// Do:
+	function Robot() {
+		if ( !(this instanceof Robot) ) {
+			return new Robot();
+		}
+		return this;
+	}
+
+	// Don't:
+	function Robot() {
+		return this;
+	}
+	```
 
 ---
 ## Setters and Getters
@@ -1262,7 +1334,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 			return this._name;
 		}
 		if ( typeof name !== 'string' ) {
-			throw new Error( 'name()::invalid input value.' );
+			throw new Error( 'invalid input value. Name must be a string. Value: `' + name + '`.' );
 		}
 		this._name = name;
 		return this;
@@ -1271,7 +1343,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	// Don't:
 	Robot.prototype.setName = function( name ) {
 		if ( typeof name !== 'string' ) {
-			throw new Error( 'name()::invalid input value.' );
+			throw new Error( 'invalid input value. Name must be a string. Value: `' + name + '`.' );
 		}
 		this._name = name;
 		return this;
@@ -1291,10 +1363,10 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 			return this._window;
 		}
 		if ( typeof win !== 'number' ||  win !== win ) {
-			throw new Error( 'invalid input argument. Window size must be numeric.' );
+			throw new Error( 'invalid input argument. Window size must be numeric. Value: `' + win + '`.' );
 		}
 		if ( Math.floor( win ) !== win || win <= 0 ) {
-			throw new Error( 'invalid input argument. Window size must be a positive integer' );
+			throw new Error( 'invalid input argument. Window size must be a positive integer. Value: `' + win + '`.' );
 		}
 		this._window = win;
 		return this;
@@ -1316,6 +1388,9 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 	``` javascript
 	function Robot() {
+		if ( !(this instanceof Robot) ) {
+			return new Robot();
+		}
 		this._name = '';
 		this._color = 'black';
 		return this;
