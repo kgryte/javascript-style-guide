@@ -19,3 +19,5 @@ TODO
 10. package.json (include example)
 11. 
 12. Github commit message / git flow --> [UPDATE|FIX|TESTS|EXAMPLES]
+	-	Better for a separate repo/guide
+13. 

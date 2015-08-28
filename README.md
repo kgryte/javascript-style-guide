@@ -56,7 +56,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 
 
-===
+---
 ## Whitespace
 
 * 	Use [tab indentation](http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/). Tab indentation allows the developer to specify the space indentation equivalent in her editor. For example, in [Sublime Text](http://www.sublimetext.com/), you can specify in your user preferences
@@ -282,7 +282,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Semicolons
 
 * 	Use semicolons. While semicolons are [not required](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf) in most cases due to [automatic semicolon insertion](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf), prefer to be explicit in specifying when a statement ends.
@@ -300,7 +300,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Parentheses
 
 * 	Do include parentheses to visually reinforce order of operations.
@@ -324,7 +324,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Variables
 
 * 	Do declare variables at the top of their scope. Doing so makes variable hoisting explicit.
@@ -442,7 +442,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Strings
 
 * 	__Always__ use single quotes for `strings`.
@@ -456,7 +456,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Arrays
 
 *	In general, use `array` literal syntax.
@@ -526,7 +526,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Objects
 
 * 	Do split `object` properties over multiple lines.
@@ -585,7 +585,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Functions
 
 *	In general, do declare `functions` using [function statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function), rather than [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function). This (1) avoids problems encountered due to [hoisting](https://github.com/buildfirst/buildfirst/tree/master/ch05/04_hoisting) and (2) minimizes the use of anonymous `functions`.
@@ -764,7 +764,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Regular Expressions
 
 *	Do assign regular expressions to variables rather than using them inline.
@@ -791,7 +791,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}
 	```
 
-===
+---
 ## Blocks
 
 * 	__Always__ use curly braces. Not using them is a common source of bugs.
@@ -872,7 +872,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}
 	```
 
-===
+---
 ## Equality
 
 * 	__Always__ prefer `===` and `!==` to `==` and `!=`. Not enforcing type equality is a source of bugs.
@@ -890,7 +890,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Comments
 
 *	Do use `/** Comments */` for mult-line comments.
@@ -996,7 +996,6 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}
 	```
 
-
 * 	Consider commenting closing braces. Doing so helps lessen bracket hell when dealing with long code blocks.
 
 	``` javascript
@@ -1021,7 +1020,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Naming
 
 *	__Always__ use camelCase for `functions`, `objects`, instances, and variables.
@@ -1118,7 +1117,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## This
 
 *	When caching a reference to `this`, use `self`.
@@ -1165,7 +1164,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Setters and Getters
 
 *	Where appropriate, combine set/get into a single method.
@@ -1224,7 +1223,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}
 	```
 
-===
+---
 ## Method Chaining
 
 *	Return `this` to enable method chaining and to create a [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface).
@@ -1265,7 +1264,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Native JavaScript
 
 * Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
@@ -1279,13 +1278,13 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Strict Mode
 
 *	__Always__ write JavaScript in `strict` [mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). Doing so discourages bad practices, avoids silent errors, and can result in better performance, as the compiler can make certain assumptions about the code.
 
 
-===
+---
 ## Performance
 
 * 	Prefer simplicity and readability over performance optimization. For example,
@@ -1302,7 +1301,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 
 
 
-===
+---
 ## Documentation
 
 * 	__Always.__
@@ -1345,7 +1344,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 * 	__Always__ make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
 
 
-===
+---
 ## Versioning
 
 * 	Use [semantic versioning](https://github.com/mojombo/semver/blob/master/semver.md) (semver) and adhere to its conventions: MAJOR.MINOR.PATCH.
@@ -1361,7 +1360,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 
-===
+---
 ## Additional Resources
 
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
