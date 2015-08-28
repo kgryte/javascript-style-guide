@@ -24,10 +24,11 @@ JavaScript Style Guide
 1.  [Classes](#classes)
 1. 	[Setters and Getters](#setters-and-getters)
 1. 	[Method Chaining](#method-chaining)
-1. 	[Client-side JavaScript](#client-side-javascript)
 1. 	[Strict Mode](#strict-mode)
 1. 	[Performance](#performance)
 1. 	[Documentation](#documentation)
+1. 	[Client-side JavaScript](#client-side-javascript)
+1.  [Modularity](#modularity)
 1. 	[Versioning](#versioning)
 1. 	[Additional Resources](#additional-resources)
 1. 	[License](#license)
@@ -804,7 +805,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 ---
 ## Arguments
 
-*	__Never__ pass the `arguments` variable to another `function`, including copy the value to an `array`. Doing so automatically puts the `function` in deoptimization hell.
+*	__Never__ pass the `arguments` variable to another `function`, including copying the contents to an `array`. Doing so automatically puts the `function` in optimization hell.
 
 	``` javascript
 	// Do:
@@ -1424,46 +1425,6 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 		.color( 'pink' );
 	```
 
-
----
-## Client-side JavaScript
-
-* 	Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
-
-	``` javascript
-	// Do:
-	var el = document.querySelector( '#main' );
-
-	// Don't:
-	var el = $( '#main' );
-	```
-
-*	__Always__ wrap client-side scripts in immediately invoked function expressions (IIFE). Doing so prevents variable leakage.
-
-	``` javascript
-	// Do:
-	(function() {
-		var beep = 'boop';
-		...
-	})();
-	```
-
-*	__Always__ namespace client-side global variables. Doing so helps minimize global variable name collisions.
-
-	``` javascript
-	// Do:
-	var myApp = {};
-	myApp.name = 'App';
-	myApp.start = function start(){};
-
-	window.myApp = myApp;
-
-	// Don't:
-	window.start = function start(){};
-	window.name = 'App';
-	```
-
-
 ---
 ## Strict Mode
 
@@ -1523,6 +1484,53 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 * 	Do __not__ claim that your code is self-documenting. Your code is not. __Period.__
 * 	Do not rely on tests as your sole source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
 * 	__Always__ make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
+
+
+---
+## Client-side JavaScript
+
+* 	Forgo dependence on monolithic libraries, such as jQuery, and use native JavaScript [equivalents](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/) for DOM manipulation. Relying on such libraries leads to code bloat.
+
+	``` javascript
+	// Do:
+	var el = document.querySelector( '#main' );
+
+	// Don't:
+	var el = $( '#main' );
+	```
+
+*	__Always__ wrap client-side scripts in immediately invoked function expressions (IIFE). Doing so prevents variable leakage.
+
+	``` javascript
+	// Do:
+	(function() {
+		var beep = 'boop';
+		...
+	})();
+	```
+
+*	__Always__ namespace client-side global variables. Doing so helps minimize global variable name collisions.
+
+	``` javascript
+	// Do:
+	var myApp = {};
+	myApp.name = 'App';
+	myApp.start = function start(){};
+
+	window.myApp = myApp;
+
+	// Don't:
+	window.start = function start(){};
+	window.name = 'App';
+	```
+
+---
+## Modularity
+
+*	Any file (except tests) within a Node module should __never__ be longer than `200` lines of code. If a file is longer than `200` lines, the code is undoubtedly too complex, not maintainable, hard to test, and needs to be refactored into smaller sub-modules. Ideally, an individual file should __never__ be longer than `80` lines.
+*	__Always__ bear in mind the single responsibility principle.
+*	__Always__ strive for reusability. 
+
 
 
 ---
