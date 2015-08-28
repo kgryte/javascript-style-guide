@@ -474,14 +474,12 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	``` javascript
 	// Do:
 	var arr = new Array( 100 );
-
 	for ( var i = 0; i < arr.length; i++ ) {
 		arr[ i ] = Math.random();
 	}
 
 	// Don't:
 	var arr = [];
-
 	for ( var i = 0; i < 100; i++ ) {
 		arr.push( Math.random() );
 	}
@@ -580,7 +578,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	var obj = {
 		'prop': true,
 		'attribute': 'foo',
-		'name': 'bar',
+		'name': 'bar', // <= DON'T
 	};
 	```
 
@@ -789,6 +787,35 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 			// Do something...
 		}
 	}
+	```
+
+*	__Always__ document regular expressions.
+
+	``` javascript
+	/**
+	* REGEX: /^\/((?:\\\/|[^\/])+)\/([imgy]*)$/
+	*	Matches parts of a regular expression string.
+	*
+	*	/^\/
+	*		-	match a string that begins with a /
+	*	()
+	*		-	capture
+	*	(?:)+
+	*		-	capture, but do not remember, a group of characters which occur 1 or more times
+	*	\\\/
+	*		-	match the literal \/
+	*	|
+	*		-	OR
+	*	[^\/]
+	*		-	anything which is not the literal \/
+	*	\/
+	*		-	match the literal /
+	*	([imgy]*)
+	*		-	capture any characters matching `imgy` occurring 0 or more times
+	*	$/
+	*		-	string end
+	*/
+	var re = /^\/((?:\\\/|[^\/])+)\/([imgy]*)$/;
 	```
 
 ---
@@ -1205,10 +1232,10 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 			return this._window;
 		}
 		if ( typeof win !== 'number' ||  win !== win ) {
-			throw new Error( 'window()::invalid input argument. Window size must be numeric.' );
+			throw new Error( 'invalid input argument. Window size must be numeric.' );
 		}
 		if ( Math.floor( win ) !== win || win <= 0 ) {
-			throw new Error( 'window()::invalid input argument. Window size must be a positive integer' );
+			throw new Error( 'invalid input argument. Window size must be a positive integer' );
 		}
 		this._window = win;
 		return this;
@@ -1240,7 +1267,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 			return this._name;
 		}
 		if ( typeof name !== 'string' ) {
-			throw new Error( 'name()::invalid input value.' );
+			throw new Error( 'invalid input value.' );
 		}
 		this._name = name;
 		return this;
@@ -1251,7 +1278,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 			return this._color;
 		}
 		if ( typeof color !== 'string' ) {
-			throw new Error( 'color()::invalid input value.' );
+			throw new Error( 'invalid input value.' );
 		}
 		this._color = color;
 		return this;
@@ -1305,7 +1332,6 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 ## Documentation
 
 * 	__Always.__
-
 * 	Prefer too much to too little.
 
 	``` javascript
@@ -1334,13 +1360,9 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 *	For client-side JavaScript, if you are concerned about file size, build/include a distributable file, stripped of comments and minified. Keep your source annotated.
-
 * 	Strive to always include example/demo code that is easily runnable.
-
 * 	Do __not__ claim that your code is self-documenting. Your code is not. __Period.__
-
 * 	Do not rely on tests as your sole source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
-
 * 	__Always__ make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
 
 
