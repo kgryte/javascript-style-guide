@@ -1504,7 +1504,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 ---
 ## Modularity
 
-*	Any file (except tests) within a Node module should __never__ be longer than `200` lines of code. If a file is longer than `200` lines, the code is undoubtedly too complex, not maintainable, hard to test, and needs to be refactored into smaller sub-modules. Ideally, an individual file should __never__ be longer than `80` lines.
+*	Every file within a Node module should be __less than__ `200` lines of code. The only exceptions are tests files, which are generally 2-3x the length of the files they test. If a file is longer than `200` lines, the code is undoubtedly too complex, not maintainable, hard to test, and needs to be refactored into smaller sub-modules. Ideally, an individual file should __never__ be longer than `80` lines.
 *	__Always__ bear in mind the single responsibility principle.
 *	__Always__ strive for reusability. 
 
