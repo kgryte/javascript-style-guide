@@ -1508,6 +1508,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 *	__Always__ strive for reusability. 
 
 
+
 ---
 ## Client-side JavaScript
 
@@ -1547,6 +1548,29 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	window.start = function start(){};
 	window.name = 'App';
 	```
+
+---
+## Dependencies
+
+*	__Avoid__ using large (swiss-army knife type) dependencies when only a small subset of functionality is used. In particular, avoid the following libraries:
+	*	underscore
+	*	lodash
+	*	async
+
+	Often smaller, more focused modules are available which can accomplish the same tasks. In general, be __explicit__ in what you require.
+*	__Always__ adequately vet any dependencies used. While Github stars and downloads are rough indicators, place more emphasis on the following:
+	*	Code quality
+		-	conciseness
+		-	maintainability
+	*	Documentation
+		-	APIs
+		-	examples
+	*	Test cases
+
+	For most cases, do __not__ place much weight on how recently the module was updated. Small, focused, well-written modules should not require much updating.
+
+*	Consider maintaining a developer [whitelist](https://github.com/kgryte/awesome-node-developers) relevant to the application domain.
+
 
 
 ---
