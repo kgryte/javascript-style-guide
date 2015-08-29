@@ -113,6 +113,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 * 	Use discretion when using spaces around `array` indices buried in braces.
 
 	``` javascript
+	// Okay:
 	var foo = myFunction( ( a === b ) ? bar[0] : bar[1] ) );
 	```
 
@@ -827,7 +828,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 ---
 ## Arguments
 
-*	__Never__ pass the `arguments` variable to another `function`, including copying the contents to an `array`. Doing so automatically puts the `function` in optimization hell.
+*	__Never__ pass the `arguments` variable to another `function`. Doing so automatically puts the `function` in optimization hell.
 
 	``` javascript
 	// Do:
@@ -1460,7 +1461,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	* FUNCTION: autocorr( vector )
 	*	Given an input data vector, calculate its auto-correlation. To calculate the auto-correlation using an FFT, the data is padded to have length 2^n, where `n` is the next power of 2 greater than the vector length. For more details, consult {@link http://example.com}.
 	*
-	* @param {Array} vector - 1d array
+	* @param {Number[]} vector - 1d array
 	* @returns {Number} auto-correlation
 	*/
 	function autocorr( vector ) {
@@ -1479,9 +1480,9 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	```
 
 *	For client-side JavaScript, if you are concerned about file size, build/include a distributable file, stripped of comments and minified. Keep your source annotated.
-* 	Strive to always include example/demo code that is easily runnable.
+* 	__Always__ include example/demo code that is easily runnable.
 * 	Do __not__ claim that your code is self-documenting. Your code is not. __Period.__
-* 	Do not rely on tests as your sole source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
+* 	Do __not__ rely on tests as your __sole__ source of documentation. While tests are documentation, annotating your source provides greater insight and a means to explain why you made particular design choices.
 * 	__Always__ make your documentation __beautiful__. Take as much pride in your documentation as you do in your code.
 
 
@@ -1505,6 +1506,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 ## Modularity
 
 *	Every file within a Node module should be __less than__ `200` lines of code. The only exceptions are tests files, which are generally 2-3x the length of the files they test. If a file is longer than `200` lines, the code is undoubtedly too complex, not maintainable, hard to test, and needs to be refactored into smaller sub-modules. Ideally, an individual file should __never__ be longer than `80` lines.
+*	Prefer only __1__ `function` per file. A file which contains fewer functions is easier to test, read, and maintain. This is particularly __true__ for Node modules.
 *	__Always__ bear in mind the single responsibility principle.
 *	__Always__ strive for reusability. 
 
