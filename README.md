@@ -1054,7 +1054,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	var err = new Error( '1' );
 	```
 
-*	__Always__ fail __fast__ (see section on [programmer errors](https://www.joyent.com/developers/node/design/errors)). A *library* should `throw` and provide tailored `error` messages if expected conditions are not met. Doing so facilitates debugging and eases code maintenance.
+*	__Always__ fail __fast__ (see [programmer errors](https://www.joyent.com/developers/node/design/errors)). A *library* should `throw` and provide tailored `error` messages if expected conditions are not met. Doing so facilitates debugging and eases code maintenance.
 
 	``` javascript
 	// Do:
@@ -1128,7 +1128,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	process.on( 'uncaughtException', onError );
 	```
 
-*	__Always__ designate the first argument for asynchronous function APIs as an `error` argument. If no `error` occurs, the value, if set, should be `null`.
+*	__Always__ designate the first argument for asynchronous function APIs as an `error` argument. If no `error` occurs, the value, if set, should be `null`. Designing asynchronous APIs in this fashion matches the Node.js core [convention](https://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback).
 
 	``` javascript
 	// Do:
