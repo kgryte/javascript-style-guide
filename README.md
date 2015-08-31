@@ -1128,7 +1128,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	process.on( 'uncaughtException', onError );
 	```
 
-*	__Always__ designate the first argument for asynchronous function APIs as an `error` argument. If no `error` occurs, the value, if set, should be `null`. Designing asynchronous APIs in this fashion matches the Node.js core [convention](https://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback).
+*	__Always__ designate the first argument for asynchronous function APIs as an `error` argument. If no `error` occurs, the value, if set, should be `null`. Designing asynchronous APIs in this fashion matches the [convention](https://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback) found in Node.js core.
 
 	``` javascript
 	// Do:
