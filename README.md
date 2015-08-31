@@ -19,6 +19,7 @@ JavaScript Style Guide
 1. 	[Regular Expressions](#regular-expressions)
 1. 	[Blocks](#blocks)
 1. 	[Equality](#equality)
+1. 	[Errors](#errors)
 1. 	[Comments](#comments)
 1. 	[Naming](#naming)
 1. 	[This](#this)
@@ -1040,6 +1041,134 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	}
 	```
 
+---
+## Errors
+
+*	__Always__ provide descriptive `error` messages.
+
+	``` javascript
+	// Do:
+	var err = new TypeError( 'invalid input argument. Window option must be a positive integer. Value: `' + value + '`.' );
+
+	// Don't:
+	var err = new Error( '1' );
+	```
+
+*	__Always__ fail __fast__ (see section on [programmer errors](https://www.joyent.com/developers/node/design/errors)). A *library* should `throw` and provide tailored `error` messages if expected conditions are not met. Doing so facilitates debugging and eases code maintenance.
+
+	``` javascript
+	// Do:
+	/**
+	* @api public
+	*/
+	function beep( clbk ) {
+		if ( !arguments.length ) {
+			throw new Error( 'insufficient input arguments. Must provide a callback function.' );
+		}
+	}
+
+	// Don't:
+	/**
+	* @api public
+	*/
+	function boop( clbk ) {
+		clbk();
+	}
+	```
+
+*	For public facing library APIs, __always__ [validate](https://github.com/validate-io/overview) input values. Doing so makes contracts explicit, facilitates testing, and helps mitigate the presence of subtle bugs.
+	
+	``` javascript
+	// Do:
+	function foo( opts ) {
+		if ( !isObject( opts ) ) {
+			throw new TypeError( 'invalid input argument. Options argument must be an object. Value: `' + opts + '`.' );
+		}
+	}
+
+	// Don't:
+	function bar( opts ) {
+		// What happens if `opts` or `opts.ssl` are not objects???
+		var key = opts.ssl.key;
+	}
+	```
+
+*	When validating, __always__ include the invalid value in the `error` message. Doing so makes debugging and logging easier.
+
+	``` javascript
+	// Do:
+	function bop( len ) {
+		if ( !isPositiveInteger( len ) ) {
+			throw new TypeError( 'invalid input argument. Length must be a positive integer. Value: `' + len + '`.' );
+		}
+	}
+
+	// Don't:
+	function bap( len ) {
+		if ( !isPositiveInteger( len ) ) {
+			throw new Error( 'invalid value.' );
+		}
+	}
+	```
+
+*	__Never__ trap [uncaught exceptions](https://nodejs.org/api/process.html#process_event_uncaughtexception) without crashing. Not crashing upon encountering an `uncaughtException` leaves your application in an undefined state and can result in memory leaks.
+
+	``` javascript
+	// Okay:
+	function onError( error ) {
+		console.error( 'Caught exception. Err: %s', error.message );
+		process.exit( 1 ); // <= THIS IS KEY!!!!
+	}
+	process.on( 'uncaughtException', onError );
+
+	// DON'T:
+	function onError( error ) {
+		console.error( 'Caught exception. Err: %s', error.message );
+	}
+	process.on( 'uncaughtException', onError );
+	```
+
+*	__Always__ designate the first argument for asynchronous function APIs as an `error` argument. If no `error` occurs, the value, if set, should be `null`.
+
+	``` javascript
+	// Do:
+	function goodAsync( clbk ) {
+		setTimeout( done, 1000 );
+		function done() {
+			clbk( null, 'beep' );
+		}
+	}
+
+	// Don't:
+	function badAsync( clbk ) {
+		setTimeout( done, 1000 );
+		function done() {
+			clbk( 'beep' );
+		}
+	}
+	``` 
+
+*	__Always__ return appropriate [status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
+
+	``` javascript
+	// Do:
+	response
+		.status( 502 )
+		.json({
+			'status': 502,
+			'message': 'unable to connect to remote database.'
+		});
+
+	// Don't:
+	response
+		.send( 200 )
+		.json({
+			'success': false
+		});
+	```
+
+
+
 
 ---
 ## Comments
@@ -1571,8 +1700,7 @@ Hopefully, most of the conventions outlined below will help enable you to do so.
 	*	Test cases
 
 	For most cases, do __not__ place much weight on how recently the module was updated. Small, focused, well-written modules should not require much updating.
-
-*	Consider maintaining a developer [whitelist](https://github.com/kgryte/awesome-node-developers) relevant to the application domain.
+*	Consider maintaining [module](https://github.com/kgryte/awesome-node-modules) and [developer](https://github.com/kgryte/awesome-node-developers) whitelists relevant to the application domain.
 
 
 

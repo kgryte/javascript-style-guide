@@ -13,9 +13,5 @@ TODO
 	- 	style-guide
 	-   Github commit message / git flow --> [UPDATE|FIX|TESTS|EXAMPLES]
 	-	Better suited for a separate repo/guide
-2. 	Create an example file incorporating many of the style guidelines.
-3.  error messages
-	-	erroneous values
-	-	descriptive msgs
-4. 	
+2. 	
 
